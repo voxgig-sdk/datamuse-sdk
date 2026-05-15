@@ -1,0 +1,28 @@
+# API Information
+
+
+main: {
+  kit: {
+    info: {
+      contact: {
+        name: "Datamuse API Team"
+        url: "http://www.onelook.com/?c=about&sel=api#feedback"
+      }
+      description: "A word-finding tool for developers"
+      license: {
+        name: "MIT"
+        url: "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
+      }
+      servers: [
+        {
+          url: "http://api.datamuse.com"
+        }
+      ]
+      termsOfService: "http://www.datamuse.com/api/"
+      title: "Datamuse API"
+      version: "1.0.0"
+    }
+  }
+}
+
+}

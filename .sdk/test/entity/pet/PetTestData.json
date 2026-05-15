@@ -1,0 +1,29 @@
+{
+  "existing": {
+    "pet": {
+      "PET00": {
+        "id": "PET00",
+        "name": "s1f",
+        "tag": "s20"
+      },
+      "PET01": {
+        "id": "PET01",
+        "name": "s3d",
+        "tag": "s3e"
+      },
+      "PET02": {
+        "id": "PET02",
+        "name": "s5b",
+        "tag": "s5c"
+      }
+    }
+  },
+  "new": {
+    "pet": {
+      "pet_ref01": {
+        "name": "s79",
+        "tag": "s7a"
+      }
+    }
+  }
+}

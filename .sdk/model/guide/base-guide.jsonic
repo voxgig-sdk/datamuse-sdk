@@ -1,0 +1,19 @@
+# Guide
+
+guide: {
+  metrics: count: entity: 1
+  metrics: count: path: 2
+  metrics: count: method: 4
+
+  entity: pet: {
+    path: "/pets/{id}": {
+      op: load: method: *GET
+      op: remove: method: *DELETE
+    }
+    path: "/words": {
+      op: create: method: *POST
+      op: list: method: *GET
+    }
+  }
+
+}
