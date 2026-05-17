@@ -1,10 +1,10 @@
 package voxgigdatamusesdk
 
 import (
-	"github.com/voxgig-sdk/datamuse-sdk/core"
-	"github.com/voxgig-sdk/datamuse-sdk/entity"
-	"github.com/voxgig-sdk/datamuse-sdk/feature"
-	_ "github.com/voxgig-sdk/datamuse-sdk/utility"
+	"github.com/voxgig-sdk/datamuse-sdk/go/core"
+	"github.com/voxgig-sdk/datamuse-sdk/go/entity"
+	"github.com/voxgig-sdk/datamuse-sdk/go/feature"
+	_ "github.com/voxgig-sdk/datamuse-sdk/go/utility"
 )
 
 // Type aliases preserve external API.

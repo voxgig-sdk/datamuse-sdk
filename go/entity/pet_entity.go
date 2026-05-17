@@ -1,9 +1,9 @@
 package entity
 
 import (
-	"github.com/voxgig-sdk/datamuse-sdk/core"
+	"github.com/voxgig-sdk/datamuse-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/datamuse-sdk/go/utility/struct"
 )
 
 type PetEntity struct {

@@ -4,7 +4,7 @@ import (
 	"log/slog"
 	"os"
 
-	"github.com/voxgig-sdk/datamuse-sdk/core"
+	"github.com/voxgig-sdk/datamuse-sdk/go/core"
 )
 
 type LogFeature struct {

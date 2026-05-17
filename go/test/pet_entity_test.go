@@ -9,10 +9,10 @@ import (
 	"testing"
 	"time"
 
-	sdk "github.com/voxgig-sdk/datamuse-sdk"
-	"github.com/voxgig-sdk/datamuse-sdk/core"
+	sdk "github.com/voxgig-sdk/datamuse-sdk/go"
+	"github.com/voxgig-sdk/datamuse-sdk/go/core"
 
-	vs "github.com/voxgig/struct"
+	vs "github.com/voxgig-sdk/datamuse-sdk/go/utility/struct"
 )
 
 func TestPetEntity(t *testing.T) {

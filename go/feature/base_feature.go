@@ -1,7 +1,7 @@
 package feature
 
 import (
-	"github.com/voxgig-sdk/datamuse-sdk/core"
+	"github.com/voxgig-sdk/datamuse-sdk/go/core"
 )
 
 type BaseFeature struct {

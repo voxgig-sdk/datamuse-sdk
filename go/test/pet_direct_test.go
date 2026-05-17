@@ -6,8 +6,8 @@ import (
 	"strings"
 	"testing"
 
-	sdk "github.com/voxgig-sdk/datamuse-sdk"
-	"github.com/voxgig-sdk/datamuse-sdk/core"
+	sdk "github.com/voxgig-sdk/datamuse-sdk/go"
+	"github.com/voxgig-sdk/datamuse-sdk/go/core"
 )
 
 func TestPetDirect(t *testing.T) {
