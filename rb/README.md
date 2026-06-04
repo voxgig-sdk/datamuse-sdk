@@ -31,9 +31,7 @@ loading a specific record.
 ```ruby
 require_relative "Datamuse_sdk"
 
-client = DatamuseSDK.new({
-  "apikey" => ENV["DATAMUSE_APIKEY"],
-})
+client = DatamuseSDK.new({})
 ```
 
 ### 2. List pets
@@ -145,7 +143,6 @@ Create a `.env.local` file at the project root:
 
 ```
 DATAMUSE_TEST_LIVE=TRUE
-DATAMUSE_APIKEY=<your-key>
 ```
 
 Then run:
@@ -168,7 +165,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `String` | API key for authentication. |
 | `base` | `String` | Base URL of the API server. |
 | `prefix` | `String` | URL path prefix prepended to all requests. |
 | `suffix` | `String` | URL path suffix appended to all requests. |

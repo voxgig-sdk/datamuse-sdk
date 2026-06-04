@@ -20,9 +20,7 @@ loading a specific record.
 <?php
 require_once 'datamuse_sdk.php';
 
-$client = new DatamuseSDK([
-    "apikey" => getenv("DATAMUSE_APIKEY"),
-]);
+$client = new DatamuseSDK([]);
 ```
 
 ### 2. List pets
@@ -137,7 +135,6 @@ Create a `.env.local` file at the project root:
 
 ```
 DATAMUSE_TEST_LIVE=TRUE
-DATAMUSE_APIKEY=<your-key>
 ```
 
 Then run:
@@ -160,7 +157,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |

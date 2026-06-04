@@ -21,7 +21,17 @@
         ],
         "termsOfService": "http://www.datamuse.com/api/",
         "title": "Datamuse API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "tagline": "Find words that match constraints on meaning, sound, spelling, and context",
+        "homepage": "https://www.datamuse.com/api/",
+        "docs_url": "https://www.datamuse.com/api/",
+        "license_short": "Free for up to 100,000 requests/day; attribution requested in app documentation.",
+        "license_md": "- Free to use without an API key for up to 100,000 requests per day; heavier use may be rate-limited.\n- Please acknowledge the Datamuse API in your app's documentation when used publicly.\n- No authentication is required for standard usage.",
+        "about_md": "The [Datamuse API](https://www.datamuse.com/api/) is a word-finding query engine for developers, created by Doug Beeferman. Applications use it to find words matching constraints on meaning, spelling, sound, and surrounding context — useful for writing tools, vocabulary games, crossword helpers, autocomplete, and similar linguistic features.\n\nWhat you get from the API:\n\n- `/words` — return words matching one or more constraints (means-like `ml`, sounds-like `sl`, spelled-like `sp`, lexical relations via `rel_[code]`, topic hints via `topics`, left/right context via `lc`/`rc`).\n- `/sug` — autocomplete suggestions with spelling correction for partial input.\n- Optional `md` flags return metadata such as definitions, parts of speech, syllable counts, pronunciation, and word frequency.\n- `max` controls result size (default 100, up to 1000); `v` selects vocabulary (English default, Spanish via `es`).\n- Responses are JSON arrays of objects with a `word` string and a `score` integer.\n\nNo API key or authentication is required for standard usage. The free tier allows up to roughly 100,000 requests per day before rate limiting may apply.",
+        "entity_desc": {
+          "pet": "Despite the name, this entity covers the API's word-result resources — JSON objects with `word` and `score` returned from the `/words` and `/sug` endpoints, not animals."
+        },
+        "auth": false
       },
       "config": {
         "auth": {
@@ -29,7 +39,15 @@
         },
         "headers": {
           "content-type": "application/json"
-        }
+        },
+        "docs_order": [
+          "ts",
+          "py",
+          "php",
+          "go",
+          "rb",
+          "lua"
+        ]
       },
       "entity": {
         "pet": {

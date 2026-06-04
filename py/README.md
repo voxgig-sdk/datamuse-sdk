@@ -23,12 +23,9 @@ loading a specific record.
 ### 1. Create a client
 
 ```python
-import os
 from datamuse_sdk import DatamuseSDK
 
-client = DatamuseSDK({
-    "apikey": os.environ.get("DATAMUSE_APIKEY"),
-})
+client = DatamuseSDK({})
 ```
 
 ### 2. List pets
@@ -140,7 +137,6 @@ Create a `.env.local` file at the project root:
 
 ```
 DATAMUSE_TEST_LIVE=TRUE
-DATAMUSE_APIKEY=<your-key>
 ```
 
 Then run:
@@ -164,7 +160,6 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `str` | API key for authentication. |
 | `base` | `str` | Base URL of the API server. |
 | `prefix` | `str` | URL path prefix prepended to all requests. |
 | `suffix` | `str` | URL path suffix appended to all requests. |

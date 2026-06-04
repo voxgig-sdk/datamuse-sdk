@@ -122,7 +122,6 @@ function pet_basic_setup($extra)
         "DATAMUSE_TEST_PET_ENTID" => $idmap,
         "DATAMUSE_TEST_LIVE" => "FALSE",
         "DATAMUSE_TEST_EXPLAIN" => "FALSE",
-        "DATAMUSE_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -134,7 +133,6 @@ function pet_basic_setup($extra)
     if ($env["DATAMUSE_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["DATAMUSE_APIKEY"],
             ],
             $extra ?? [],
         ]);

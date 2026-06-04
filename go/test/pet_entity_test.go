@@ -172,7 +172,6 @@ func petBasicSetup(extra map[string]any) *entityTestSetup {
 		"DATAMUSE_TEST_PET_ENTID": idmap,
 		"DATAMUSE_TEST_LIVE":      "FALSE",
 		"DATAMUSE_TEST_EXPLAIN":   "FALSE",
-		"DATAMUSE_APIKEY":         "NONE",
 	})
 
 	idmapResolved := core.ToMapAny(env["DATAMUSE_TEST_PET_ENTID"])
@@ -183,7 +182,6 @@ func petBasicSetup(extra map[string]any) *entityTestSetup {
 	if env["DATAMUSE_TEST_LIVE"] == "TRUE" {
 		mergedOpts := vs.Merge([]any{
 			map[string]any{
-				"apikey": env["DATAMUSE_APIKEY"],
 			},
 			extra,
 		})
