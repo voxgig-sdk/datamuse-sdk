@@ -1,22 +1,8 @@
 # Datamuse SDK
 
-Find words that match constraints on meaning, sound, spelling, and context
+Datamuse API client, generated from the OpenAPI spec.
 
 > TypeScript, Python, PHP, Golang, Ruby, Lua SDKs, a CLI, an interactive REPL, and an MCP server for AI agents — all generated from one OpenAPI spec by [@voxgig/sdkgen](https://github.com/voxgig/sdkgen).
-
-## About Datamuse API
-
-The [Datamuse API](https://www.datamuse.com/api/) is a word-finding query engine for developers, created by Doug Beeferman. Applications use it to find words matching constraints on meaning, spelling, sound, and surrounding context — useful for writing tools, vocabulary games, crossword helpers, autocomplete, and similar linguistic features.
-
-What you get from the API:
-
-- `/words` — return words matching one or more constraints (means-like `ml`, sounds-like `sl`, spelled-like `sp`, lexical relations via `rel_[code]`, topic hints via `topics`, left/right context via `lc`/`rc`).
-- `/sug` — autocomplete suggestions with spelling correction for partial input.
-- Optional `md` flags return metadata such as definitions, parts of speech, syllable counts, pronunciation, and word frequency.
-- `max` controls result size (default 100, up to 1000); `v` selects vocabulary (English default, Spanish via `es`).
-- Responses are JSON arrays of objects with a `word` string and a `score` integer.
-
-No API key or authentication is required for standard usage. The free tier allows up to roughly 100,000 requests per day before rate limiting may apply.
 
 ## Try it
 
@@ -50,29 +36,31 @@ gem install datamuse-sdk
 luarocks install datamuse-sdk
 ```
 
-## 30-second quickstart
+## Quickstart
 
 ### TypeScript
 
 ```ts
 import { DatamuseSDK } from 'datamuse'
 
-const client = new DatamuseSDK({})
+const client = new DatamuseSDK({
+  apikey: process.env.DATAMUSE_APIKEY,
+})
 
 // List all pets
 const pets = await client.Pet().list()
+console.log(pets.data)
 ```
 
-See the [TypeScript README](ts/README.md) for the
-full guide, or scroll down for the same example in other languages.
+See the [TypeScript README](ts/README.md) for the full guide.
 
-## What's in the box
+## Surfaces
 
-| Surface | Use it for | Path |
-| --- | --- | --- |
-| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | App integration | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
-| **CLI** | Scripts, CI, ops, one-off API calls | `go-cli/` |
-| **MCP server** | AI agents (Claude, Cursor, Cline) | `go-mcp/` |
+| Surface | Path |
+| --- | --- |
+| **SDK** (TypeScript, Python, PHP, Golang, Ruby, Lua) | `ts/` `py/` `php/` `go/` `rb/` `lua/` |
+| **CLI** | `go-cli/` |
+| **MCP server** | `go-mcp/` |
 
 ## Use it from an AI agent (MCP)
 
@@ -102,7 +90,7 @@ The API exposes one entity:
 
 | Entity | Description | API path |
 | --- | --- | --- |
-| **Pet** | Despite the name, this entity covers the API's word-result resources — JSON objects with `word` and `score` returned from the `/words` and `/sug` endpoints, not animals. | `/words` |
+| **Pet** |  | `/words` |
 
 Each entity supports the following operations where available: **load**,
 **list**, **create**, **update**, and **remove**.
@@ -112,17 +100,20 @@ Each entity supports the following operations where available: **load**,
 ### Python
 
 ```python
+import os
 from datamuse_sdk import DatamuseSDK
 
-client = DatamuseSDK({})
+client = DatamuseSDK({
+    "apikey": os.environ.get("DATAMUSE_APIKEY"),
+})
 
 # List all pets
-pets, err = client.Pet(None).list(None, None)
+pets, err = client.Pet().list()
+print(pets)
 
 # Load a specific pet
-pet, err = client.Pet(None).load(
-    {"id": "example_id"}, None
-)
+pet, err = client.Pet().load({"id": "example_id"})
+print(pet)
 ```
 
 ### PHP
@@ -131,15 +122,17 @@ pet, err = client.Pet(None).load(
 <?php
 require_once 'datamuse_sdk.php';
 
-$client = new DatamuseSDK([]);
+$client = new DatamuseSDK([
+    "apikey" => getenv("DATAMUSE_APIKEY"),
+]);
 
 // List all pets
-[$pets, $err] = $client->Pet(null)->list(null, null);
+[$pets, $err] = $client->Pet()->list();
+print_r($pets);
 
 // Load a specific pet
-[$pet, $err] = $client->Pet(null)->load(
-    ["id" => "example_id"], null
-);
+[$pet, $err] = $client->Pet()->load(["id" => "example_id"]);
+print_r($pet);
 ```
 
 ### Golang
@@ -147,10 +140,13 @@ $client = new DatamuseSDK([]);
 ```go
 import sdk "github.com/voxgig-sdk/datamuse-sdk/go"
 
-client := sdk.NewDatamuseSDK(map[string]any{})
+client := sdk.NewDatamuseSDK(map[string]any{
+    "apikey": os.Getenv("DATAMUSE_APIKEY"),
+})
 
 // List all pets
 pets, err := client.Pet(nil).List(nil, nil)
+fmt.Println(pets)
 ```
 
 ### Ruby
@@ -158,15 +154,17 @@ pets, err := client.Pet(nil).List(nil, nil)
 ```ruby
 require_relative "Datamuse_sdk"
 
-client = DatamuseSDK.new({})
+client = DatamuseSDK.new({
+  "apikey" => ENV["DATAMUSE_APIKEY"],
+})
 
 # List all pets
-pets, err = client.Pet(nil).list(nil, nil)
+pets, err = client.Pet().list
+puts pets
 
 # Load a specific pet
-pet, err = client.Pet(nil).load(
-  { "id" => "example_id" }, nil
-)
+pet, err = client.Pet().load({ "id" => "example_id" })
+puts pet
 ```
 
 ### Lua
@@ -174,15 +172,17 @@ pet, err = client.Pet(nil).load(
 ```lua
 local sdk = require("datamuse_sdk")
 
-local client = sdk.new({})
+local client = sdk.new({
+  apikey = os.getenv("DATAMUSE_APIKEY"),
+})
 
 -- List all pets
-local pets, err = client:Pet(nil):list(nil, nil)
+local pets, err = client:Pet():list()
+print(pets)
 
 -- Load a specific pet
-local pet, err = client:Pet(nil):load(
-  { id = "example_id" }, nil
-)
+local pet, err = client:Pet():load({ id = "example_id" })
+print(pet)
 ```
 
 ## Unit testing in offline mode
@@ -201,25 +201,21 @@ const result = await client.Pet().load({ id: 'test01' })
 ### Python
 
 ```python
-client = DatamuseSDK.test(None, None)
-result, err = client.Pet(None).load(
-    {"id": "test01"}, None
-)
+client = DatamuseSDK.test()
+result, err = client.Pet().load({"id": "test01"})
 ```
 
 ### PHP
 
 ```php
-$client = DatamuseSDK::test(null, null);
-[$result, $err] = $client->Pet(null)->load(
-    ["id" => "test01"], null
-);
+$client = DatamuseSDK::test();
+[$result, $err] = $client->Pet()->load(["id" => "test01"]);
 ```
 
 ### Golang
 
 ```go
-client := sdk.TestSDK(nil, nil)
+client := sdk.Test()
 result, err := client.Pet(nil).Load(
     map[string]any{"id": "test01"}, nil,
 )
@@ -228,19 +224,15 @@ result, err := client.Pet(nil).Load(
 ### Ruby
 
 ```ruby
-client = DatamuseSDK.test(nil, nil)
-result, err = client.Pet(nil).load(
-  { "id" => "test01" }, nil
-)
+client = DatamuseSDK.test
+result, err = client.Pet().load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
-local client = sdk.test(nil, nil)
-local result, err = client:Pet(nil):load(
-  { id = "test01" }, nil
-)
+local client = sdk.test()
+local result, err = client:Pet():load({ id = "test01" })
 ```
 
 ## How it works
@@ -344,14 +336,6 @@ local result, err = client:direct({
 - [Golang](go/README.md)
 - [Ruby](rb/README.md)
 - [Lua](lua/README.md)
-
-## Using the Datamuse API
-
-- Upstream: [https://www.datamuse.com/api/](https://www.datamuse.com/api/)
-
-- Free to use without an API key for up to 100,000 requests per day; heavier use may be rate-limited.
-- Please acknowledge the Datamuse API in your app's documentation when used publicly.
-- No authentication is required for standard usage.
 
 ---
 

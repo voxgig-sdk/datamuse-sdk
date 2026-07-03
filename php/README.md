@@ -1,6 +1,11 @@
 # Datamuse PHP SDK
 
-The PHP SDK for the Datamuse API. Provides an entity-oriented interface using PHP conventions.
+
+
+The PHP SDK for the Datamuse API — an entity-oriented client using PHP conventions.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -20,13 +25,15 @@ loading a specific record.
 <?php
 require_once 'datamuse_sdk.php';
 
-$client = new DatamuseSDK([]);
+$client = new DatamuseSDK([
+    "apikey" => getenv("DATAMUSE_APIKEY"),
+]);
 ```
 
 ### 2. List pets
 
 ```php
-[$result, $err] = $client->Pet(null)->list(null, null);
+[$result, $err] = $client->Pet()->list();
 if ($err) { throw new \Exception($err); }
 
 if (is_array($result)) {
@@ -40,7 +47,7 @@ if (is_array($result)) {
 ### 3. Load a pet
 
 ```php
-[$result, $err] = $client->Pet(null)->load(["id" => "example_id"], null);
+[$result, $err] = $client->Pet()->load(["id" => "example_id"]);
 if ($err) { throw new \Exception($err); }
 print_r($result);
 ```
@@ -49,10 +56,10 @@ print_r($result);
 
 ```php
 // Create
-[$created, $_] = $client->Pet(null)->create(["name" => "Example"], null);
+[$created, $_] = $client->Pet()->create(["name" => "Example"]);
 
 // Remove
-$client->Pet(null)->remove(["id" => $created["id"]], null);
+$client->Pet()->remove(["id" => $created["id"]]);
 ```
 
 
@@ -96,11 +103,9 @@ print_r($fetchdef["headers"]);
 Create a mock client for unit testing — no server required:
 
 ```php
-$client = DatamuseSDK::test(null, null);
+$client = DatamuseSDK::test();
 
-[$result, $err] = $client->Datamuse(null)->load(
-    ["id" => "test01"], null
-);
+[$result, $err] = $client->Datamuse()->load(["id" => "test01"]);
 // $result contains mock response data
 ```
 
@@ -135,6 +140,7 @@ Create a `.env.local` file at the project root:
 
 ```
 DATAMUSE_TEST_LIVE=TRUE
+DATAMUSE_APIKEY=<your-key>
 ```
 
 Then run:
@@ -157,6 +163,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |

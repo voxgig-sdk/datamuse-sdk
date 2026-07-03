@@ -141,6 +141,7 @@ function basicSetup(extra?: any) {
     'DATAMUSE_TEST_PET_ENTID': idmap,
     'DATAMUSE_TEST_LIVE': 'FALSE',
     'DATAMUSE_TEST_EXPLAIN': 'FALSE',
+    'DATAMUSE_APIKEY': 'NONE',
   })
 
   idmap = env['DATAMUSE_TEST_PET_ENTID']
@@ -150,6 +151,7 @@ function basicSetup(extra?: any) {
   if (live) {
     client = new DatamuseSDK(merge([
       {
+        apikey: env.DATAMUSE_APIKEY,
       },
       extra
     ]))

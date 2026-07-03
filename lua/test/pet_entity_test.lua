@@ -128,6 +128,7 @@ function pet_basic_setup(extra)
     ["DATAMUSE_TEST_PET_ENTID"] = idmap,
     ["DATAMUSE_TEST_LIVE"] = "FALSE",
     ["DATAMUSE_TEST_EXPLAIN"] = "FALSE",
+    ["DATAMUSE_APIKEY"] = "NONE",
   })
 
   local idmap_resolved = helpers.to_map(
@@ -139,6 +140,7 @@ function pet_basic_setup(extra)
   if env["DATAMUSE_TEST_LIVE"] == "TRUE" then
     local merged_opts = vs.merge({
       {
+        apikey = env["DATAMUSE_APIKEY"],
       },
       extra or {},
     })

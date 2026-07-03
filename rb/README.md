@@ -1,6 +1,11 @@
 # Datamuse Ruby SDK
 
-The Ruby SDK for the Datamuse API. Provides an entity-oriented interface using idiomatic Ruby conventions.
+
+
+The Ruby SDK for the Datamuse API — an entity-oriented client using idiomatic Ruby conventions.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -31,13 +36,15 @@ loading a specific record.
 ```ruby
 require_relative "Datamuse_sdk"
 
-client = DatamuseSDK.new({})
+client = DatamuseSDK.new({
+  "apikey" => ENV["DATAMUSE_APIKEY"],
+})
 ```
 
 ### 2. List pets
 
 ```ruby
-result, err = client.Pet(nil).list(nil, nil)
+result, err = client.Pet().list
 raise err if err
 
 if result.is_a?(Array)
@@ -51,7 +58,7 @@ end
 ### 3. Load a pet
 
 ```ruby
-result, err = client.Pet(nil).load({ "id" => "example_id" }, nil)
+result, err = client.Pet().load({ "id" => "example_id" })
 raise err if err
 puts result
 ```
@@ -60,10 +67,10 @@ puts result
 
 ```ruby
 # Create
-created, _ = client.Pet(nil).create({ "name" => "Example" }, nil)
+created, _ = client.Pet().create({ "name" => "Example" })
 
 # Remove
-client.Pet(nil).remove({ "id" => created["id"] }, nil)
+client.Pet().remove({ "id" => created["id"] })
 ```
 
 
@@ -107,11 +114,9 @@ puts fetchdef["headers"]
 Create a mock client for unit testing — no server required:
 
 ```ruby
-client = DatamuseSDK.test(nil, nil)
+client = DatamuseSDK.test
 
-result, err = client.Datamuse(nil).load(
-  { "id" => "test01" }, nil
-)
+result, err = client.Datamuse().load({ "id" => "test01" })
 # result contains mock response data
 ```
 
@@ -143,6 +148,7 @@ Create a `.env.local` file at the project root:
 
 ```
 DATAMUSE_TEST_LIVE=TRUE
+DATAMUSE_APIKEY=<your-key>
 ```
 
 Then run:
@@ -165,6 +171,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `String` | API key for authentication. |
 | `base` | `String` | Base URL of the API server. |
 | `prefix` | `String` | URL path prefix prepended to all requests. |
 | `suffix` | `String` | URL path suffix appended to all requests. |

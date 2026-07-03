@@ -117,12 +117,14 @@ function pet_direct_setup(mockres)
   local env = runner.env_override({
     ["DATAMUSE_TEST_PET_ENTID"] = {},
     ["DATAMUSE_TEST_LIVE"] = "FALSE",
+    ["DATAMUSE_APIKEY"] = "NONE",
   })
 
   local live = env["DATAMUSE_TEST_LIVE"] == "TRUE"
 
   if live then
     local merged_opts = {
+      apikey = env["DATAMUSE_APIKEY"],
     }
     local client = sdk.new(merged_opts)
     return {

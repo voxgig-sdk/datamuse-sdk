@@ -1,6 +1,11 @@
 # Datamuse Python SDK
 
-The Python SDK for the Datamuse API. Provides an entity-oriented interface following Pythonic conventions.
+
+
+The Python SDK for the Datamuse API — an entity-oriented client following Pythonic conventions.
+
+> Other languages, the CLI, and MCP server live alongside this one — see
+> the [top-level README](../README.md).
 
 
 ## Install
@@ -23,15 +28,18 @@ loading a specific record.
 ### 1. Create a client
 
 ```python
+import os
 from datamuse_sdk import DatamuseSDK
 
-client = DatamuseSDK({})
+client = DatamuseSDK({
+    "apikey": os.environ.get("DATAMUSE_APIKEY"),
+})
 ```
 
 ### 2. List pets
 
 ```python
-result, err = client.Pet(None).list(None, None)
+result, err = client.Pet().list()
 if err:
     raise Exception(err)
 
@@ -44,7 +52,7 @@ if isinstance(result, list):
 ### 3. Load a pet
 
 ```python
-result, err = client.Pet(None).load({"id": "example_id"}, None)
+result, err = client.Pet().load({"id": "example_id"})
 if err:
     raise Exception(err)
 print(result)
@@ -54,10 +62,10 @@ print(result)
 
 ```python
 # Create
-created, _ = client.Pet(None).create({"name": "Example"}, None)
+created, _ = client.Pet().create({"name": "Example"})
 
 # Remove
-client.Pet(None).remove({"id": created["id"]}, None)
+client.Pet().remove({"id": created["id"]})
 ```
 
 
@@ -102,11 +110,9 @@ print(fetchdef["headers"])
 Create a mock client for unit testing — no server required:
 
 ```python
-client = DatamuseSDK.test(None, None)
+client = DatamuseSDK.test()
 
-result, err = client.Datamuse(None).load(
-    {"id": "test01"}, None
-)
+result, err = client.Datamuse().load({"id": "test01"})
 # result contains mock response data
 ```
 
@@ -137,6 +143,7 @@ Create a `.env.local` file at the project root:
 
 ```
 DATAMUSE_TEST_LIVE=TRUE
+DATAMUSE_APIKEY=<your-key>
 ```
 
 Then run:
@@ -160,6 +167,7 @@ Creates a new SDK client.
 
 | Option | Type | Description |
 | --- | --- | --- |
+| `apikey` | `str` | API key for authentication. |
 | `base` | `str` | Base URL of the API server. |
 | `prefix` | `str` | URL path prefix prepended to all requests. |
 | `suffix` | `str` | URL path suffix appended to all requests. |

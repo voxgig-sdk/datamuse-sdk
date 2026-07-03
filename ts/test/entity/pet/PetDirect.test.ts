@@ -136,12 +136,14 @@ function directSetup(mockres?: any) {
   const env = envOverride({
     'DATAMUSE_TEST_PET_ENTID': {},
     'DATAMUSE_TEST_LIVE': 'FALSE',
+    'DATAMUSE_APIKEY': 'NONE',
   })
 
   const live = 'TRUE' === env.DATAMUSE_TEST_LIVE
 
   if (live) {
     const client = new DatamuseSDK({
+      apikey: env.DATAMUSE_APIKEY,
     })
 
     let idmap: any = env['DATAMUSE_TEST_PET_ENTID']

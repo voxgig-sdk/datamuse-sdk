@@ -116,12 +116,14 @@ def pet_direct_setup(mockres)
   env = Runner.env_override({
     "DATAMUSE_TEST_PET_ENTID" => {},
     "DATAMUSE_TEST_LIVE" => "FALSE",
+    "DATAMUSE_APIKEY" => "NONE",
   })
 
   live = env["DATAMUSE_TEST_LIVE"] == "TRUE"
 
   if live
     merged_opts = {
+      "apikey" => env["DATAMUSE_APIKEY"],
     }
     client = DatamuseSDK.new(merged_opts)
     return {

@@ -30,12 +30,12 @@ Create a new SDK client instance.
 
 ### Static Methods
 
-#### `sdk.test(testopts, sdkopts)`
+#### `sdk.test(testopts?, sdkopts?)`
 
-Create a test client with mock features active. Both arguments may be `nil`.
+Create a test client with mock features active. Both arguments are optional.
 
 ```lua
-local client = sdk.test(nil, nil)
+local client = sdk.test()
 ```
 
 
@@ -102,9 +102,9 @@ local pet = client:Pet(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:Pet(nil):create({
+local result, err = client:Pet():create({
   name = --[[ `$STRING` ]],
-}, nil)
+})
 ```
 
 #### `list(reqmatch, ctrl) -> any, err`
@@ -112,7 +112,7 @@ local result, err = client:Pet(nil):create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Pet(nil):list(nil, nil)
+local results, err = client:Pet():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -120,7 +120,7 @@ local results, err = client:Pet(nil):list(nil, nil)
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Pet(nil):load({ id = "pet_id" }, nil)
+local result, err = client:Pet():load({ id = "pet_id" })
 ```
 
 #### `remove(reqmatch, ctrl) -> any, err`
@@ -128,7 +128,7 @@ local result, err = client:Pet(nil):load({ id = "pet_id" }, nil)
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:Pet(nil):remove({ id = "pet_id" }, nil)
+local result, err = client:Pet():remove({ id = "pet_id" })
 ```
 
 ### Common Methods
