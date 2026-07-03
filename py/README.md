@@ -10,7 +10,7 @@ The Python SDK for the Datamuse API — an entity-oriented client following Pyth
 
 ## Install
 ```bash
-pip install datamuse-sdk
+pip install voxgig-sdk-datamuse
 ```
 
 Or install from source:

@@ -10,13 +10,13 @@ The Ruby SDK for the Datamuse API — an entity-oriented client using idiomatic 
 
 ## Install
 ```bash
-gem install datamuse-sdk
+gem install voxgig-sdk-datamuse
 ```
 
 Or add to your `Gemfile`:
 
 ```ruby
-gem "datamuse-sdk"
+gem "voxgig-sdk-datamuse"
 ```
 
 Then run:

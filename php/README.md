@@ -10,7 +10,7 @@ The PHP SDK for the Datamuse API — an entity-oriented client using PHP convent
 
 ## Install
 ```bash
-composer require voxgig/datamuse-sdk
+composer require voxgig-sdk/datamuse
 ```
 
 

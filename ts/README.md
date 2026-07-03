@@ -10,7 +10,7 @@ The TypeScript SDK for the Datamuse API — a type-safe, entity-oriented client 
 
 ## Install
 ```bash
-npm install datamuse
+npm install @voxgig-sdk/datamuse
 ```
 ## Tutorial: your first API call
 
