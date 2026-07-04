@@ -43,8 +43,7 @@ class PetEntityTest extends TestCase
         $pet_ref01_data = Helpers::to_map(Vs::getprop(
             Vs::getpath($setup["data"], "new.pet"), "pet_ref01"));
 
-        [$pet_ref01_data_result, $err] = $pet_ref01_ent->create($pet_ref01_data, null);
-        $this->assertNull($err);
+        $pet_ref01_data_result = $pet_ref01_ent->create($pet_ref01_data, null);
         $pet_ref01_data = Helpers::to_map($pet_ref01_data_result);
         $this->assertNotNull($pet_ref01_data);
         $this->assertNotNull($pet_ref01_data["id"]);
@@ -52,8 +51,7 @@ class PetEntityTest extends TestCase
         // LIST
         $pet_ref01_match = [];
 
-        [$pet_ref01_list_result, $err] = $pet_ref01_ent->list($pet_ref01_match, null);
-        $this->assertNull($err);
+        $pet_ref01_list_result = $pet_ref01_ent->list($pet_ref01_match, null);
         $this->assertIsArray($pet_ref01_list_result);
 
         $found_item = sdk_select(
@@ -65,8 +63,7 @@ class PetEntityTest extends TestCase
         $pet_ref01_match_dt0 = [
             "id" => $pet_ref01_data["id"],
         ];
-        [$pet_ref01_data_dt0_loaded, $err] = $pet_ref01_ent->load($pet_ref01_match_dt0, null);
-        $this->assertNull($err);
+        $pet_ref01_data_dt0_loaded = $pet_ref01_ent->load($pet_ref01_match_dt0, null);
         $pet_ref01_data_dt0_load_result = Helpers::to_map($pet_ref01_data_dt0_loaded);
         $this->assertNotNull($pet_ref01_data_dt0_load_result);
         $this->assertEquals($pet_ref01_data_dt0_load_result["id"], $pet_ref01_data["id"]);
@@ -75,14 +72,12 @@ class PetEntityTest extends TestCase
         $pet_ref01_match_rm0 = [
             "id" => $pet_ref01_data["id"],
         ];
-        [$_, $err] = $pet_ref01_ent->remove($pet_ref01_match_rm0, null);
-        $this->assertNull($err);
+        $pet_ref01_ent->remove($pet_ref01_match_rm0, null);
 
         // LIST
         $pet_ref01_match_rt0 = [];
 
-        [$pet_ref01_list_rt0_result, $err] = $pet_ref01_ent->list($pet_ref01_match_rt0, null);
-        $this->assertNull($err);
+        $pet_ref01_list_rt0_result = $pet_ref01_ent->list($pet_ref01_match_rt0, null);
         $this->assertIsArray($pet_ref01_list_rt0_result);
 
         $not_found_item = sdk_select(
@@ -122,7 +117,6 @@ function pet_basic_setup($extra)
         "DATAMUSE_TEST_PET_ENTID" => $idmap,
         "DATAMUSE_TEST_LIVE" => "FALSE",
         "DATAMUSE_TEST_EXPLAIN" => "FALSE",
-        "DATAMUSE_APIKEY" => "NONE",
     ]);
 
     $idmap_resolved = Helpers::to_map(
@@ -134,7 +128,6 @@ function pet_basic_setup($extra)
     if ($env["DATAMUSE_TEST_LIVE"] === "TRUE") {
         $merged_opts = Vs::merge([
             [
-                "apikey" => $env["DATAMUSE_APIKEY"],
             ],
             $extra ?? [],
         ]);

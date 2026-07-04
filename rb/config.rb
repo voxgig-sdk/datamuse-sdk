@@ -15,9 +15,6 @@ module DatamuseConfig
       },
       "options" => {
         "base" => "http://api.datamuse.com",
-        "auth" => {
-          "prefix" => "Bearer",
-        },
         "headers" => {
           "content-type" => "application/json",
         },
@@ -150,6 +147,7 @@ module DatamuseConfig
                         "orig" => "id",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                   },
@@ -188,6 +186,7 @@ module DatamuseConfig
                         "orig" => "id",
                         "reqd" => true,
                         "type" => "`$STRING`",
+                        "index$" => 0,
                       },
                     ],
                   },

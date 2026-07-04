@@ -36,8 +36,7 @@ class PetEntityTest < Minitest::Test
     pet_ref01_data = Helpers.to_map(Vs.getprop(
       Vs.getpath(setup[:data], "new.pet"), "pet_ref01"))
 
-    pet_ref01_data_result, err = pet_ref01_ent.create(pet_ref01_data, nil)
-    assert_nil err
+    pet_ref01_data_result = pet_ref01_ent.create(pet_ref01_data, nil)
     pet_ref01_data = Helpers.to_map(pet_ref01_data_result)
     assert !pet_ref01_data.nil?
     assert !pet_ref01_data["id"].nil?
@@ -45,8 +44,7 @@ class PetEntityTest < Minitest::Test
     # LIST
     pet_ref01_match = {}
 
-    pet_ref01_list_result, err = pet_ref01_ent.list(pet_ref01_match, nil)
-    assert_nil err
+    pet_ref01_list_result = pet_ref01_ent.list(pet_ref01_match, nil)
     assert pet_ref01_list_result.is_a?(Array)
 
     found_item = Vs.select(
@@ -58,8 +56,7 @@ class PetEntityTest < Minitest::Test
     pet_ref01_match_dt0 = {
       "id" => pet_ref01_data["id"],
     }
-    pet_ref01_data_dt0_loaded, err = pet_ref01_ent.load(pet_ref01_match_dt0, nil)
-    assert_nil err
+    pet_ref01_data_dt0_loaded = pet_ref01_ent.load(pet_ref01_match_dt0, nil)
     pet_ref01_data_dt0_load_result = Helpers.to_map(pet_ref01_data_dt0_loaded)
     assert !pet_ref01_data_dt0_load_result.nil?
     assert_equal pet_ref01_data_dt0_load_result["id"], pet_ref01_data["id"]
@@ -68,14 +65,12 @@ class PetEntityTest < Minitest::Test
     pet_ref01_match_rm0 = {
       "id" => pet_ref01_data["id"],
     }
-    _, err = pet_ref01_ent.remove(pet_ref01_match_rm0, nil)
-    assert_nil err
+    pet_ref01_ent.remove(pet_ref01_match_rm0, nil)
 
     # LIST
     pet_ref01_match_rt0 = {}
 
-    pet_ref01_list_rt0_result, err = pet_ref01_ent.list(pet_ref01_match_rt0, nil)
-    assert_nil err
+    pet_ref01_list_rt0_result = pet_ref01_ent.list(pet_ref01_match_rt0, nil)
     assert pet_ref01_list_rt0_result.is_a?(Array)
 
     not_found_item = Vs.select(
@@ -119,7 +114,6 @@ def pet_basic_setup(extra)
     "DATAMUSE_TEST_PET_ENTID" => idmap,
     "DATAMUSE_TEST_LIVE" => "FALSE",
     "DATAMUSE_TEST_EXPLAIN" => "FALSE",
-    "DATAMUSE_APIKEY" => "NONE",
   })
 
   idmap_resolved = Helpers.to_map(
@@ -131,7 +125,6 @@ def pet_basic_setup(extra)
   if env["DATAMUSE_TEST_LIVE"] == "TRUE"
     merged_opts = Vs.merge([
       {
-        "apikey" => env["DATAMUSE_APIKEY"],
       },
       extra || {},
     ])

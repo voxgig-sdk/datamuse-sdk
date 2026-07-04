@@ -9,9 +9,12 @@ The TypeScript SDK for the Datamuse API — a type-safe, entity-oriented client 
 
 
 ## Install
-```bash
-npm install @voxgig-sdk/datamuse
-```
+This package is not yet published to npm. Install it from the GitHub
+release tag (`ts/vX.Y.Z`):
+
+- Releases: [https://github.com/voxgig-sdk/datamuse-sdk/releases](https://github.com/voxgig-sdk/datamuse-sdk/releases)
+
+
 ## Tutorial: your first API call
 
 This tutorial walks through creating a client, listing entities, and
@@ -20,17 +23,15 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { DatamuseSDK } from 'datamuse'
+import { DatamuseSDK } from '@voxgig-sdk/datamuse'
 
-const client = new DatamuseSDK({
-  apikey: process.env.DATAMUSE_APIKEY,
-})
+const client = new DatamuseSDK()
 ```
 
 ### 2. List pets
 
 ```ts
-const result = await client.Pet().list()
+const result = await client.pet.list()
 
 if (result.ok) {
   for (const item of result.data) {
@@ -42,7 +43,7 @@ if (result.ok) {
 ### 3. Load a pet
 
 ```ts
-const result = await client.Pet().load({ id: 'example_id' })
+const result = await client.pet.load({ id: 'example_id' })
 
 if (result.ok) {
   console.log(result.data)
@@ -53,12 +54,12 @@ if (result.ok) {
 
 ```ts
 // Create
-const created = await client.Pet().create({
+const created = await client.pet.create({
   name: 'Example',
 })
 
 // Remove
-const removed = await client.Pet().remove({
+const removed = await client.pet.remove({
   id: created.data.id,
 })
 ```
@@ -105,7 +106,7 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = DatamuseSDK.test()
 
-const result = await client.Planet().load({ id: 'test01' })
+const result = await client.pet.load({ id: 'test01' })
 // result.ok === true
 // result.data contains mock response data
 ```
@@ -113,7 +114,7 @@ const result = await client.Planet().load({ id: 'test01' })
 You can also use the instance method:
 
 ```ts
-const client = new DatamuseSDK({ apikey: '...' })
+const client = new DatamuseSDK()
 const testClient = client.tester()
 ```
 
@@ -122,7 +123,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.Planet()
+const entity = client.pet
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -149,7 +150,6 @@ const logger = {
 }
 
 const client = new DatamuseSDK({
-  apikey: '...',
   extend: [logger],
 })
 ```
@@ -160,7 +160,6 @@ Create a `.env.local` file at the project root:
 
 ```
 DATAMUSE_TEST_LIVE=TRUE
-DATAMUSE_APIKEY=<your-key>
 ```
 
 Then run:
@@ -178,7 +177,6 @@ cd ts && npm test
 
 ```ts
 new DatamuseSDK(options?: {
-  apikey?: string
   base?: string
   prefix?: string
   suffix?: string
@@ -189,7 +187,6 @@ new DatamuseSDK(options?: {
 
 | Option | Type | Description |
 | --- | --- | --- |
-| `apikey` | `string` | API key for authentication. |
 | `base` | `string` | Base URL of the API server. |
 | `prefix` | `string` | URL path prefix prepended to all requests. |
 | `suffix` | `string` | URL path suffix appended to all requests. |
@@ -294,7 +291,7 @@ API path: `/words`
 
 ### Pet
 
-Create an instance: `const pet = client.Pet()`
+Create an instance: `const pet = client.pet`
 
 #### Operations
 
@@ -316,19 +313,19 @@ Create an instance: `const pet = client.Pet()`
 #### Example: Load
 
 ```ts
-const pet = await client.Pet().load({ id: 'pet_id' })
+const pet = await client.pet.load({ id: 'pet_id' })
 ```
 
 #### Example: List
 
 ```ts
-const pets = await client.Pet().list()
+const pets = await client.pet.list()
 ```
 
 #### Example: Create
 
 ```ts
-const pet = await client.Pet().create({
+const pet = await client.pet.create({
   name: /* `$STRING` */,
 })
 ```
@@ -391,7 +388,7 @@ datamuse/
 Import the SDK from the package root:
 
 ```ts
-import { DatamuseSDK } from 'datamuse'
+import { DatamuseSDK } from '@voxgig-sdk/datamuse'
 ```
 
 ### Entity state
@@ -401,11 +398,11 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const moon = client.Moon()
-await moon.load({ planet_id: 'earth', id: 'luna' })
+const pet = client.pet
+await pet.load({ id: "example_id" })
 
-// moon.data() now returns the loaded moon data
-// moon.match() returns { planet_id: 'earth', id: 'luna' }
+// pet.data() now returns the loaded pet data
+// pet.match() returns { id: "example_id" }
 ```
 
 Call `make()` to create a fresh instance with the same configuration

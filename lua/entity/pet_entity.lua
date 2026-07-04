@@ -79,6 +79,10 @@ end
 
 
 
+---@param reqmatch PetLoadMatch
+---@param ctrl? table
+---@return Pet
+---@return string? err
 function PetEntity:load(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -104,6 +108,10 @@ end
 
 
 
+---@param reqmatch PetListMatch
+---@param ctrl? table
+---@return Pet[]
+---@return string? err
 function PetEntity:list(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -126,6 +134,10 @@ end
 
 
 
+---@param reqdata PetCreateData
+---@param ctrl? table
+---@return Pet
+---@return string? err
 function PetEntity:create(reqdata, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({
@@ -150,6 +162,10 @@ end
 
 
 
+---@param reqmatch PetRemoveMatch
+---@param ctrl? table
+---@return Pet
+---@return string? err
 function PetEntity:remove(reqmatch, ctrl)
   local utility = self._utility
   local ctx = utility.make_context({

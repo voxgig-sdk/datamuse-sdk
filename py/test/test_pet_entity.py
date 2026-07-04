@@ -44,17 +44,14 @@ class TestPetEntity:
         pet_ref01_data = helpers.to_map(vs.getprop(
             vs.getpath(setup["data"], "new.pet"), "pet_ref01"))
 
-        pet_ref01_data_result, err = pet_ref01_ent.create(pet_ref01_data, None)
-        assert err is None
-        pet_ref01_data = helpers.to_map(pet_ref01_data_result)
+        pet_ref01_data = helpers.to_map(pet_ref01_ent.create(pet_ref01_data, None))
         assert pet_ref01_data is not None
         assert pet_ref01_data["id"] is not None
 
         # LIST
         pet_ref01_match = {}
 
-        pet_ref01_list_result, err = pet_ref01_ent.list(pet_ref01_match, None)
-        assert err is None
+        pet_ref01_list_result = pet_ref01_ent.list(pet_ref01_match, None)
         assert isinstance(pet_ref01_list_result, list)
 
         found_item = vs.select(
@@ -66,8 +63,7 @@ class TestPetEntity:
         pet_ref01_match_dt0 = {
             "id": pet_ref01_data["id"],
         }
-        pet_ref01_data_dt0_loaded, err = pet_ref01_ent.load(pet_ref01_match_dt0, None)
-        assert err is None
+        pet_ref01_data_dt0_loaded = pet_ref01_ent.load(pet_ref01_match_dt0, None)
         pet_ref01_data_dt0_load_result = helpers.to_map(pet_ref01_data_dt0_loaded)
         assert pet_ref01_data_dt0_load_result is not None
         assert pet_ref01_data_dt0_load_result["id"] == pet_ref01_data["id"]
@@ -76,14 +72,12 @@ class TestPetEntity:
         pet_ref01_match_rm0 = {
             "id": pet_ref01_data["id"],
         }
-        _, err = pet_ref01_ent.remove(pet_ref01_match_rm0, None)
-        assert err is None
+        pet_ref01_ent.remove(pet_ref01_match_rm0, None)
 
         # LIST
         pet_ref01_match_rt0 = {}
 
-        pet_ref01_list_rt0_result, err = pet_ref01_ent.list(pet_ref01_match_rt0, None)
-        assert err is None
+        pet_ref01_list_rt0_result = pet_ref01_ent.list(pet_ref01_match_rt0, None)
         assert isinstance(pet_ref01_list_rt0_result, list)
 
         not_found_item = vs.select(
@@ -129,7 +123,6 @@ def _pet_basic_setup(extra):
         "DATAMUSE_TEST_PET_ENTID": idmap,
         "DATAMUSE_TEST_LIVE": "FALSE",
         "DATAMUSE_TEST_EXPLAIN": "FALSE",
-        "DATAMUSE_APIKEY": "NONE",
     })
 
     idmap_resolved = helpers.to_map(
@@ -140,7 +133,6 @@ def _pet_basic_setup(extra):
     if env.get("DATAMUSE_TEST_LIVE") == "TRUE":
         merged_opts = vs.merge([
             {
-                "apikey": env.get("DATAMUSE_APIKEY"),
             },
             extra or {},
         ])

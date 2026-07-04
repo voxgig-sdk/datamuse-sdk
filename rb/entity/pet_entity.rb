@@ -45,6 +45,7 @@ class PetEntity
     end
   end
 
+  # @return [Pet, Hash] the current Pet data
   def data_get
     @_utility.feature_hook.call(@_entctx, "GetData")
     VoxgigStruct.clone(@_data)
@@ -57,12 +58,18 @@ class PetEntity
     end
   end
 
+  # @return [Hash] the current match filter (any subset of Pet fields)
   def match_get
     @_utility.feature_hook.call(@_entctx, "GetMatch")
     VoxgigStruct.clone(@_match)
   end
 
   
+  # Load a single Pet.
+  #
+  # @param reqmatch [PetLoadMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Pet, Hash] the loaded Pet; raises DatamuseError on failure
   def load(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -86,6 +93,11 @@ class PetEntity
 
 
   
+  # List Pet items matching the given filter.
+  #
+  # @param reqmatch [PetListMatch, Hash, nil] match filter (any subset of Pet fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Array<Pet>, Array] the matching Pet items; raises DatamuseError on failure
   def list(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -106,6 +118,11 @@ class PetEntity
 
 
   
+  # Create a new Pet.
+  #
+  # @param reqdata [PetCreateData, Hash, nil] body data
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Pet, Hash] the created Pet; raises DatamuseError on failure
   def create(reqdata, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({
@@ -130,6 +147,11 @@ class PetEntity
   
 
   
+  # Remove an Pet matching the given criteria.
+  #
+  # @param reqmatch [PetRemoveMatch, Hash, nil] match criteria (id/query fields)
+  # @param ctrl [Object, nil] optional per-call control
+  # @return [Pet, Hash] the removed Pet; raises DatamuseError on failure
   def remove(reqmatch, ctrl = nil)
     utility = @_utility
     ctx = utility.make_context.call({

@@ -14,9 +14,16 @@ import type {
   Control,
 } from '../types'
 
+import type {
+  Pet,
+  PetLoadMatch,
+  PetListMatch,
+  PetCreateData,
+  PetRemoveMatch,
+} from '../DatamuseTypes'
 
 // TODO: needs Entity superclass
-class PetEntity extends DatamuseEntityBase {
+class PetEntity extends DatamuseEntityBase<Pet> {
 
   constructor(client: DatamuseSDK, entopts: any) {
     super(client, entopts)
@@ -32,7 +39,7 @@ class PetEntity extends DatamuseEntityBase {
 
 
 
-  async load(this: any, reqmatch?: any, ctrl?: Control) {
+  async load(this: any, reqmatch?: PetLoadMatch, ctrl?: Control): Promise<Pet> {
 
     const utility = this._utility
 
@@ -136,14 +143,16 @@ class PetEntity extends DatamuseEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Pet> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async list(this: any, reqmatch?: any, ctrl?: Control) {
+  async list(this: any, reqmatch?: PetListMatch, ctrl?: Control): Promise<Pet[]> {
 
     const utility = this._utility
 
@@ -243,14 +252,16 @@ class PetEntity extends DatamuseEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Pet[]> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
 
 
 
-  async create(this: any, reqdata?: any, ctrl?: Control) {
+  async create(this: any, reqdata?: PetCreateData, ctrl?: Control): Promise<Pet> {
 
     const utility = this._utility
     const {
@@ -349,7 +360,9 @@ class PetEntity extends DatamuseEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Pet> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }
@@ -357,7 +370,7 @@ class PetEntity extends DatamuseEntityBase {
 
 
 
-  async remove(this: any, reqmatch?: any, ctrl?: Control) {
+  async remove(this: any, reqmatch?: PetRemoveMatch, ctrl?: Control): Promise<Pet> {
 
     const utility = this._utility
 
@@ -462,7 +475,9 @@ class PetEntity extends DatamuseEntityBase {
         throw err
       }
       else {
-        return undefined
+        // Off-happy-path (throw disabled): typed as any so the method's
+        // Promise<Pet> return stays clean under strict null checks.
+        return undefined as any
       }
     }
   }

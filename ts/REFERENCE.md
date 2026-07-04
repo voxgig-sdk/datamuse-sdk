@@ -18,7 +18,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `object` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -110,7 +109,7 @@ Alias for `DatamuseSDK.test()`.
 ## PetEntity
 
 ```ts
-const pet = client.Pet()
+const pet = client.pet
 ```
 
 ### Fields
@@ -128,7 +127,7 @@ const pet = client.Pet()
 Create a new entity with the given data.
 
 ```ts
-const result = await client.Pet().create({
+const result = await client.pet.create({
   name: /* `$STRING` */,
 })
 ```
@@ -138,7 +137,7 @@ const result = await client.Pet().create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.Pet().list()
+const results = await client.pet.list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -146,7 +145,7 @@ const results = await client.Pet().list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.Pet().load({ id: 'pet_id' })
+const result = await client.pet.load({ id: 'pet_id' })
 ```
 
 #### `remove(match: object, ctrl?: object)`
@@ -154,7 +153,7 @@ const result = await client.Pet().load({ id: 'pet_id' })
 Remove the entity matching the given criteria.
 
 ```ts
-const result = await client.Pet().remove({ id: 'pet_id' })
+const result = await client.pet.remove({ id: 'pet_id' })
 ```
 
 ### Common Methods

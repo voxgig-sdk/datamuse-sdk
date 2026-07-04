@@ -14,9 +14,6 @@ local function make_config()
     },
     options = {
       base = "http://api.datamuse.com",
-      auth = {
-        prefix = "Bearer",
-      },
       headers = {
         ["content-type"] = "application/json",
       },
@@ -149,6 +146,7 @@ local function make_config()
                       ["orig"] = "id",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
+                      ["index$"] = 0,
                     },
                   },
                 },
@@ -187,6 +185,7 @@ local function make_config()
                       ["orig"] = "id",
                       ["reqd"] = true,
                       ["type"] = "`$STRING`",
+                      ["index$"] = 0,
                     },
                   },
                 },

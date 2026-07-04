@@ -19,7 +19,6 @@ Create a new SDK client instance.
 | Name | Type | Description |
 | --- | --- | --- |
 | `options` | `table` | SDK configuration options. |
-| `options.apikey` | `string` | API key for authentication. |
 | `options.base` | `string` | Base URL for API requests. |
 | `options.prefix` | `string` | URL prefix appended after base. |
 | `options.suffix` | `string` | URL suffix appended after path. |
@@ -84,7 +83,7 @@ same parameters as `direct()`.
 ## PetEntity
 
 ```lua
-local pet = client:Pet(nil)
+local pet = client:pet(nil)
 ```
 
 ### Fields
@@ -102,7 +101,7 @@ local pet = client:Pet(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:Pet():create({
+local result, err = client:pet():create({
   name = --[[ `$STRING` ]],
 })
 ```
@@ -112,7 +111,7 @@ local result, err = client:Pet():create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:Pet():list()
+local results, err = client:pet():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -120,7 +119,7 @@ local results, err = client:Pet():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:Pet():load({ id = "pet_id" })
+local result, err = client:pet():load({ id = "pet_id" })
 ```
 
 #### `remove(reqmatch, ctrl) -> any, err`
@@ -128,7 +127,7 @@ local result, err = client:Pet():load({ id = "pet_id" })
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:Pet():remove({ id = "pet_id" })
+local result, err = client:pet():remove({ id = "pet_id" })
 ```
 
 ### Common Methods

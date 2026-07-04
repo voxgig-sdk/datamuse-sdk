@@ -245,6 +245,9 @@ func (sdk *DatamuseSDK) Direct(fetchargs map[string]any) (map[string]any, error)
 }
 
 
+// Pet returns a Pet entity bound to this client.
+// Idiomatic usage: client.Pet(nil).List(nil, nil) or
+// client.Pet(nil).Load(map[string]any{"id": ...}, nil).
 func (sdk *DatamuseSDK) Pet(data map[string]any) DatamuseEntity {
 	return NewPetEntityFunc(sdk, data)
 }

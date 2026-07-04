@@ -194,14 +194,12 @@ func petDirectSetup(mockres any) *petDirectSetupResult {
 	env := envOverride(map[string]any{
 		"DATAMUSE_TEST_PET_ENTID": map[string]any{},
 		"DATAMUSE_TEST_LIVE":    "FALSE",
-		"DATAMUSE_APIKEY":       "NONE",
 	})
 
 	live := env["DATAMUSE_TEST_LIVE"] == "TRUE"
 
 	if live {
 		mergedOpts := map[string]any{
-			"apikey": env["DATAMUSE_APIKEY"],
 		}
 		client := sdk.NewDatamuseSDK(mergedOpts)
 

@@ -85,6 +85,27 @@ func (e *PetEntity) Match(args ...any) any {
 	return out
 }
 
+// DataTyped is the statically-typed accessor for this entity's data. With no
+// argument it returns the current data as an Pet; with an argument it
+// sets the data and returns the stored value. It delegates to the untyped Data
+// (identical runtime) and converts at the typed boundary.
+func (e *PetEntity) DataTyped(data ...Pet) Pet {
+	if len(data) > 0 {
+		return typedFrom[Pet](e.Data(asMap(data[0])))
+	}
+	return typedFrom[Pet](e.Data())
+}
+
+// MatchTyped mirrors DataTyped for the entity's match filter. The match is a
+// partial of the entity, so it round-trips through Pet (all fields
+// optional at the wire level).
+func (e *PetEntity) MatchTyped(match ...Pet) Pet {
+	if len(match) > 0 {
+		return typedFrom[Pet](e.Match(asMap(match[0])))
+	}
+	return typedFrom[Pet](e.Match())
+}
+
 
 func (e *PetEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, error) {
 	utility := e.utility
@@ -111,6 +132,17 @@ func (e *PetEntity) Load(reqmatch map[string]any, ctrl map[string]any) (any, err
 	})
 }
 
+// LoadTyped is the statically-typed variant of Load: it takes an
+// PetLoadMatch and returns an Pet. It delegates to the untyped
+// Load (identical runtime) and converts at the typed boundary.
+func (e *PetEntity) LoadTyped(reqmatch PetLoadMatch, ctrl map[string]any) (Pet, error) {
+	res, err := e.Load(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Pet{}, err
+	}
+	return typedFrom[Pet](res), nil
+}
+
 
 
 
@@ -131,6 +163,17 @@ func (e *PetEntity) List(reqmatch map[string]any, ctrl map[string]any) (any, err
 			}
 		}
 	})
+}
+
+// ListTyped is the statically-typed variant of List: it takes an
+// PetListMatch and returns []Pet. It delegates to the untyped
+// List (identical runtime) and converts at the typed boundary.
+func (e *PetEntity) ListTyped(reqmatch PetListMatch, ctrl map[string]any) ([]Pet, error) {
+	res, err := e.List(asMap(reqmatch), ctrl)
+	if err != nil {
+		return nil, err
+	}
+	return typedSliceFrom[Pet](res), nil
 }
 
 
@@ -156,6 +199,17 @@ func (e *PetEntity) Create(reqdata map[string]any, ctrl map[string]any) (any, er
 			}
 		}
 	})
+}
+
+// CreateTyped is the statically-typed variant of Create: it takes an
+// PetCreateData and returns an Pet. It delegates to the untyped
+// Create (identical runtime) and converts at the typed boundary.
+func (e *PetEntity) CreateTyped(reqdata PetCreateData, ctrl map[string]any) (Pet, error) {
+	res, err := e.Create(asMap(reqdata), ctrl)
+	if err != nil {
+		return Pet{}, err
+	}
+	return typedFrom[Pet](res), nil
 }
 
 
@@ -189,6 +243,17 @@ func (e *PetEntity) Remove(reqmatch map[string]any, ctrl map[string]any) (any, e
 			}
 		}
 	})
+}
+
+// RemoveTyped is the statically-typed variant of Remove: it takes an
+// PetRemoveMatch and returns an Pet. It delegates to the untyped
+// Remove (identical runtime) and converts at the typed boundary.
+func (e *PetEntity) RemoveTyped(reqmatch PetRemoveMatch, ctrl map[string]any) (Pet, error) {
+	res, err := e.Remove(asMap(reqmatch), ctrl)
+	if err != nil {
+		return Pet{}, err
+	}
+	return typedFrom[Pet](res), nil
 }
 
 
