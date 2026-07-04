@@ -31,24 +31,28 @@ from datamuse_sdk import DatamuseSDK
 client = DatamuseSDK()
 ```
 
-### 2. List pets
+### 2. List pet records
+
+`list()` returns a `list` of records (each a `dict`) and raises on
+error — iterate it directly.
 
 ```python
 try:
-    result = client.pet.list()
-    for item in result:
-        d = item.data_get()
-        print(d["id"], d["name"])
+    pets = client.Pet().list({})
+    for pet in pets:
+        print(pet)
 except Exception as err:
     print(f"list failed: {err}")
 ```
 
 ### 3. Load a pet
 
+`load()` returns the bare record (a `dict`) and raises on error.
+
 ```python
 try:
-    result = client.pet.load({"id": "example_id"})
-    print(result)
+    pet = client.Pet().load({"id": "example_id"})
+    print(pet)
 except Exception as err:
     print(f"load failed: {err}")
 ```
@@ -56,11 +60,11 @@ except Exception as err:
 ### 4. Create, update, and remove
 
 ```python
-# Create
-created = client.pet.create({"name": "Example"})
+# Create — returns the bare created record (a dict)
+created = client.Pet().create({"name": "Example"})
 
 # Remove
-client.pet.remove({"id": created["id"]})
+client.Pet().remove({"id": created["id"]})
 ```
 
 
@@ -106,8 +110,9 @@ Create a mock client for unit testing — no server required:
 ```python
 client = DatamuseSDK.test()
 
-result = client.pet.load({"id": "test01"})
-# result contains mock response data
+# Entity ops return the bare record and raise on error.
+pet = client.Pet().load({"id": "test01"})
+# pet contains the mock response record
 ```
 
 ### Use a custom fetch function
@@ -242,7 +247,7 @@ API path: `/words`
 
 ### Pet
 
-Create an instance: `const pet = client.pet`
+Create an instance: `pet = client.Pet()`
 
 #### Operations
 
@@ -263,21 +268,21 @@ Create an instance: `const pet = client.pet`
 
 #### Example: Load
 
-```ts
-const pet = await client.pet.load({ id: 'pet_id' })
+```python
+pet = client.Pet().load({"id": "pet_id"})
 ```
 
 #### Example: List
 
-```ts
-const pets = await client.pet.list()
+```python
+pets = client.Pet().list({})
 ```
 
 #### Example: Create
 
-```ts
-const pet = await client.pet.create({
-  name: /* `$STRING` */,
+```python
+pet = client.Pet().create({
+    "name": ...,  # `$STRING`
 })
 ```
 
@@ -352,7 +357,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```python
-pet = client.pet
+pet = client.Pet()
 pet.load({"id": "example_id"})
 
 # pet.data_get() now returns the loaded pet data

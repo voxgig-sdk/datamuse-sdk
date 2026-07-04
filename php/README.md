@@ -29,18 +29,16 @@ require_once 'datamuse_sdk.php';
 $client = new DatamuseSDK();
 ```
 
-### 2. List pets
+### 2. List pet records
 
 ```php
 try {
-    $result = $client->pet()->list();
-    if (is_array($result)) {
-        foreach ($result as $item) {
-            $d = $item->data_get();
-            echo $d["id"] . " " . $d["name"] . "\n";
-        }
+    // list() returns an array of Pet records — iterate directly.
+    $pets = $client->Pet()->list();
+    foreach ($pets as $item) {
+        echo $item["id"] . " " . $item["name"] . "\n";
     }
-} catch (\Exception $err) {
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -49,9 +47,10 @@ try {
 
 ```php
 try {
-    $result = $client->pet()->load(["id" => "example_id"]);
-    print_r($result);
-} catch (\Exception $err) {
+    // load() returns the bare Pet record (throws on error).
+    $pet = $client->Pet()->load(["id" => "example_id"]);
+    print_r($pet);
+} catch (\Throwable $err) {
     echo "Error: " . $err->getMessage();
 }
 ```
@@ -59,11 +58,11 @@ try {
 ### 4. Create, update, and remove
 
 ```php
-// Create
-$created = $client->pet()->create(["name" => "Example"]);
+// create() returns the bare created Pet record.
+$created = $client->Pet()->create(["name" => "Example"]);
 
 // Remove
-$client->pet()->remove(["id" => $created["id"]]);
+$client->Pet()->remove(["id" => $created["id"]]);
 ```
 
 
@@ -107,13 +106,17 @@ print_r($fetchdef["headers"]);
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```php
-$client = DatamuseSDK::test();
+$client = DatamuseSDK::test([
+    "entity" => ["pet" => ["test01" => ["id" => "test01"]]],
+]);
 
-$result = $client->pet()->load(["id" => "test01"]);
-// $result contains mock response data
+// load() returns the bare mock record (throws on error).
+$pet = $client->Pet()->load(["id" => "test01"]);
+print_r($pet);
 ```
 
 ### Use a custom fetch function
@@ -251,7 +254,7 @@ API path: `/words`
 
 ### Pet
 
-Create an instance: `const pet = client.pet`
+Create an instance: `$pet = $client->Pet();`
 
 #### Operations
 
@@ -272,22 +275,24 @@ Create an instance: `const pet = client.pet`
 
 #### Example: Load
 
-```ts
-const pet = await client.pet.load({ id: 'pet_id' })
+```php
+// load() returns the bare Pet record (throws on error).
+$pet = $client->Pet()->load(["id" => "pet_id"]);
 ```
 
 #### Example: List
 
-```ts
-const pets = await client.pet.list()
+```php
+// list() returns an array of Pet records (throws on error).
+$pets = $client->Pet()->list();
 ```
 
 #### Example: Create
 
-```ts
-const pet = await client.pet.create({
-  name: /* `$STRING` */,
-})
+```php
+$pet = $client->Pet()->create([
+    "name" => null, // `$STRING`
+]);
 ```
 
 
@@ -362,7 +367,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```php
-$pet = $client->pet();
+$pet = $client->Pet();
 $pet->load(["id" => "example_id"]);
 
 // $pet->dataGet() now returns the loaded pet data

@@ -28,16 +28,14 @@ require_relative "Datamuse_sdk"
 client = DatamuseSDK.new
 ```
 
-### 2. List pets
+### 2. List pet records
 
 ```ruby
 begin
-  result = client.pet.list
-  if result.is_a?(Array)
-    result.each do |item|
-      d = item.data_get
-      puts "#{d["id"]} #{d["name"]}"
-    end
+  # list returns an Array of Pet records — iterate directly.
+  pets = client.Pet.list
+  pets.each do |item|
+    puts "#{item["id"]} #{item["name"]}"
   end
 rescue => err
   warn "list failed: #{err}"
@@ -48,8 +46,9 @@ end
 
 ```ruby
 begin
-  result = client.pet.load({ "id" => "example_id" })
-  puts result
+  # load returns the bare Pet record (raises on error).
+  pet = client.Pet.load({ "id" => "example_id" })
+  puts pet
 rescue => err
   warn "load failed: #{err}"
 end
@@ -58,11 +57,11 @@ end
 ### 4. Create, update, and remove
 
 ```ruby
-# Create
-created = client.pet.create({ "name" => "Example" })
+# create returns the bare created Pet record.
+created = client.Pet.create({ "name" => "Example" })
 
 # Remove
-client.pet.remove({ "id" => created["id"] })
+client.Pet.remove({ "id" => created["id"] })
 ```
 
 
@@ -106,13 +105,17 @@ end
 
 ### Use test mode
 
-Create a mock client for unit testing — no server required:
+Create a mock client for unit testing — no server required. Seed fixture
+data via the `entity` option so offline calls resolve without a live server:
 
 ```ruby
-client = DatamuseSDK.test
+client = DatamuseSDK.test({
+  "entity" => { "pet" => { "test01" => { "id" => "test01" } } },
+})
 
-result = client.pet.load({ "id" => "test01" })
-# result contains mock response data
+# load returns the bare mock record (raises on error).
+pet = client.Pet.load({ "id" => "test01" })
+puts pet
 ```
 
 ### Use a custom fetch function
@@ -246,7 +249,7 @@ API path: `/words`
 
 ### Pet
 
-Create an instance: `const pet = client.pet`
+Create an instance: `pet = client.Pet`
 
 #### Operations
 
@@ -267,21 +270,23 @@ Create an instance: `const pet = client.pet`
 
 #### Example: Load
 
-```ts
-const pet = await client.pet.load({ id: 'pet_id' })
+```ruby
+# load returns the bare Pet record (raises on error).
+pet = client.Pet.load({ "id" => "pet_id" })
 ```
 
 #### Example: List
 
-```ts
-const pets = await client.pet.list()
+```ruby
+# list returns an Array of Pet records (raises on error).
+pets = client.Pet.list
 ```
 
 #### Example: Create
 
-```ts
-const pet = await client.pet.create({
-  name: /* `$STRING` */,
+```ruby
+pet = client.Pet.create({
+  "name" => nil, # `$STRING`
 })
 ```
 
@@ -357,7 +362,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```ruby
-pet = client.pet
+pet = client.Pet
 pet.load({ "id" => "example_id" })
 
 # pet.data_get now returns the loaded pet data

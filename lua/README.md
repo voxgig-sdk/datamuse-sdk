@@ -31,36 +31,37 @@ local sdk = require("datamuse_sdk")
 local client = sdk.new()
 ```
 
-### 2. List pets
+### 2. List pet records
+
+Entity operations return `(value, err)`. For `list`, `value` is the
+array of records itself — iterate it directly (there is no wrapper).
 
 ```lua
-local result, err = client:pet():list()
+local pets, err = client:Pet():list()
 if err then error(err) end
 
-if type(result) == "table" then
-  for _, item in ipairs(result) do
-    local d = item:data_get()
-    print(d["id"], d["name"])
-  end
+for _, item in ipairs(pets) do
+  print(item["id"], item["name"])
 end
 ```
 
 ### 3. Load a pet
 
 ```lua
-local result, err = client:pet():load({ id = "example_id" })
+local pet, err = client:Pet():load({ id = "example_id" })
 if err then error(err) end
-print(result)
+print(pet)
 ```
 
 ### 4. Create, update, and remove
 
 ```lua
 -- Create
-local created, _ = client:pet():create({ name = "Example" })
+local created, err = client:Pet():create({ name = "Example" })
+if err then error(err) end
 
 -- Remove
-client:pet():remove({ id = created["id"] })
+client:Pet():remove({ id = created["id"] })
 ```
 
 
@@ -106,8 +107,8 @@ Create a mock client for unit testing — no server required:
 ```lua
 local client = sdk.test()
 
-local result, err = client:pet():load({ id = "test01" })
--- result contains mock response data
+local result, err = client:Pet():load({ id = "test01" })
+-- result is the loaded data; err is set on failure
 ```
 
 ### Use a custom fetch function
@@ -207,17 +208,22 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return `(any, err)`. The first value is a
-`table` with these keys:
+Entity operations return `(value, err)`. The `value` is the operation's
+data **directly** — there is no wrapper:
 
-| Key | Type | Description |
-| --- | --- | --- |
-| `ok` | `boolean` | `true` if the HTTP status is 2xx. |
-| `status` | `number` | HTTP status code. |
-| `headers` | `table` | Response headers. |
-| `data` | `any` | Parsed JSON response body. |
+| Operation | `value` |
+| --- | --- |
+| `load` / `create` / `update` / `remove` | the entity record (a `table`) |
+| `list` | an array (`table`) of entity records |
 
-On error, `ok` is `false` and `err` contains the error value.
+Check `err` first (it is non-`nil` on failure), then use `value`:
+
+    local pet, err = client:Pet():load({ id = "example_id" })
+    if err then error(err) end
+    -- pet is the loaded record
+
+Only `direct()` returns a response envelope — a `table` with `ok`,
+`status`, `headers`, and `data` keys.
 
 ### Entities
 
@@ -240,7 +246,7 @@ API path: `/words`
 
 ### Pet
 
-Create an instance: `const pet = client.pet`
+Create an instance: `local pet = client:Pet(nil)`
 
 #### Operations
 
@@ -261,21 +267,21 @@ Create an instance: `const pet = client.pet`
 
 #### Example: Load
 
-```ts
-const pet = await client.pet.load({ id: 'pet_id' })
+```lua
+local pet, err = client:Pet():load({ id = "pet_id" })
 ```
 
 #### Example: List
 
-```ts
-const pets = await client.pet.list()
+```lua
+local pets, err = client:Pet():list()
 ```
 
 #### Example: Create
 
-```ts
-const pet = await client.pet.create({
-  name: /* `$STRING` */,
+```lua
+local pet, err = client:Pet():create({
+  name = nil, -- `$STRING`
 })
 ```
 
@@ -351,7 +357,7 @@ Entity instances are stateful. After a successful `load`, the entity
 stores the returned data and match criteria internally.
 
 ```lua
-local pet = client:pet()
+local pet = client:Pet()
 pet:load({ id = "example_id" })
 
 -- pet:data_get() now returns the loaded pet data

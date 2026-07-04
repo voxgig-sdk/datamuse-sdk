@@ -244,8 +244,9 @@ end
 
 
 
--- Idiomatic facade: client:pet():list() / client:pet():load({ id = ... })
-function DatamuseSDK:pet(data)
+-- Idiomatic facade: client:Pet():list() / client:Pet():load({ id = ... })
+-- Entity access is capitalised (PascalCase) for parity with the other SDKs.
+function DatamuseSDK:Pet(data)
   local EntityMod = require("entity.pet_entity")
   if data == nil then
     if self._pet == nil then
@@ -253,12 +254,6 @@ function DatamuseSDK:pet(data)
     end
     return self._pet
   end
-  return EntityMod.new(self, data)
-end
-
--- Deprecated: use client:pet() instead.
-function DatamuseSDK:Pet(data)
-  local EntityMod = require("entity.pet_entity")
   return EntityMod.new(self, data)
 end
 

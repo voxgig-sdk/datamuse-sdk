@@ -208,13 +208,7 @@ class DatamuseSDK
   end
 
 
-  # Idiomatic facade: client.pet.list / client.pet.load({ "id" => ... })
-  def pet
-    require_relative 'entity/pet_entity'
-    @pet ||= PetEntity.new(self, nil)
-  end
-
-  # Deprecated: use client.pet instead.
+  # Canonical facade: client.Pet.list / client.Pet.load({ "id" => ... })
   def Pet(data = nil)
     require_relative 'entity/pet_entity'
     PetEntity.new(self, data)

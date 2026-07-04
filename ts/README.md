@@ -28,39 +28,42 @@ import { DatamuseSDK } from '@voxgig-sdk/datamuse'
 const client = new DatamuseSDK()
 ```
 
-### 2. List pets
+### 2. List pet records
+
+`list()` resolves to an array of Pet objects — iterate it directly:
 
 ```ts
-const result = await client.pet.list()
+const pets = await client.Pet().list()
 
-if (result.ok) {
-  for (const item of result.data) {
-    console.log(item.id, item.name)
-  }
+for (const pet of pets) {
+  console.log(pet)
 }
 ```
 
 ### 3. Load a pet
 
-```ts
-const result = await client.pet.load({ id: 'example_id' })
+`load()` returns the entity directly and throws on failure:
 
-if (result.ok) {
-  console.log(result.data)
+```ts
+try {
+  const pet = await client.Pet().load({ id: 'example_id' })
+  console.log(pet)
+} catch (err) {
+  console.error('load failed:', err)
 }
 ```
 
 ### 4. Create, update, and remove
 
 ```ts
-// Create
-const created = await client.pet.create({
+// Create — returns the created Pet
+const created = await client.Pet().create({
   name: 'Example',
 })
 
 // Remove
-const removed = await client.pet.remove({
-  id: created.data.id,
+await client.Pet().remove({
+  id: created.id,
 })
 ```
 
@@ -78,6 +81,9 @@ const result = await client.direct({
   params: { id: 'example' },
 })
 
+if (result instanceof Error) {
+  throw result
+}
 if (result.ok) {
   console.log(result.status)  // 200
   console.log(result.data)    // response body
@@ -106,9 +112,9 @@ Create a mock client for unit testing — no server required:
 ```ts
 const client = DatamuseSDK.test()
 
-const result = await client.pet.load({ id: 'test01' })
-// result.ok === true
-// result.data contains mock response data
+const pet = await client.Pet().load({ id: 'test01' })
+// pet is a bare entity populated with mock response data
+console.log(pet)
 ```
 
 You can also use the instance method:
@@ -123,7 +129,7 @@ const testClient = client.tester()
 Entity instances remember their last match and data:
 
 ```ts
-const entity = client.pet
+const entity = client.Pet()
 
 // First call sets internal match
 await entity.load({ id: 'example' })
@@ -218,29 +224,30 @@ All entities share the same interface.
 
 | Method | Signature | Description |
 | --- | --- | --- |
-| `load` | `load(reqmatch?, ctrl?): Promise<Result>` | Load a single entity by match criteria. |
-| `list` | `list(reqmatch?, ctrl?): Promise<Result>` | List entities matching the criteria. |
-| `create` | `create(reqdata?, ctrl?): Promise<Result>` | Create a new entity. |
-| `update` | `update(reqdata?, ctrl?): Promise<Result>` | Update an existing entity. |
-| `remove` | `remove(reqmatch?, ctrl?): Promise<Result>` | Remove an entity. |
+| `load` | `load(reqmatch?, ctrl?): Promise<Entity>` | Load a single entity by match criteria. |
+| `list` | `list(reqmatch?, ctrl?): Promise<Entity[]>` | List entities matching the criteria. |
+| `create` | `create(reqdata?, ctrl?): Promise<Entity>` | Create a new entity. |
+| `update` | `update(reqdata?, ctrl?): Promise<Entity>` | Update an existing entity. |
+| `remove` | `remove(reqmatch?, ctrl?): Promise<void>` | Remove an entity. |
 | `data` | `data(data?): any` | Get or set entity data. |
 | `match` | `match(match?): any` | Get or set entity match criteria. |
 | `make` | `make(): Entity` | Create a new instance with the same options. |
 | `client` | `client(): DatamuseSDK` | Return the parent SDK client. |
 | `entopts` | `entopts(): object` | Return a copy of the entity options. |
 
-#### Result shape
+#### Return values
 
-All entity operations return a Result object:
+Entity operations resolve to the entity data directly — there is no
+result envelope:
 
-```ts
-{
-  ok: boolean      // true if the HTTP status is 2xx
-  status: number   // HTTP status code
-  headers: object  // response headers
-  data: any        // parsed JSON response body
-}
-```
+- `load`, `create` and `update` resolve to a single entity object.
+- `list` resolves to an **array** of entity objects (iterate it directly;
+  there is no `.data` and no `.ok`).
+- `remove` resolves to `void`.
+
+On a failed request these methods **throw**, so wrap calls in
+`try`/`catch` to handle errors. Only `direct()` returns the result
+envelope described below.
 
 ### DirectResult shape
 
@@ -291,7 +298,7 @@ API path: `/words`
 
 ### Pet
 
-Create an instance: `const pet = client.pet`
+Create an instance: `const pet = client.Pet()`
 
 #### Operations
 
@@ -313,19 +320,19 @@ Create an instance: `const pet = client.pet`
 #### Example: Load
 
 ```ts
-const pet = await client.pet.load({ id: 'pet_id' })
+const pet = await client.Pet().load({ id: 'pet_id' })
 ```
 
 #### Example: List
 
 ```ts
-const pets = await client.pet.list()
+const pets = await client.Pet().list()
 ```
 
 #### Example: Create
 
 ```ts
-const pet = await client.pet.create({
+const pet = await client.Pet().create({
   name: /* `$STRING` */,
 })
 ```
@@ -398,7 +405,7 @@ stores the returned data and match criteria internally. Subsequent
 calls on the same instance can rely on this state.
 
 ```ts
-const pet = client.pet
+const pet = client.Pet()
 await pet.load({ id: "example_id" })
 
 // pet.data() now returns the loaded pet data

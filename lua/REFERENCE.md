@@ -83,7 +83,7 @@ same parameters as `direct()`.
 ## PetEntity
 
 ```lua
-local pet = client:pet(nil)
+local pet = client:Pet(nil)
 ```
 
 ### Fields
@@ -101,7 +101,7 @@ local pet = client:pet(nil)
 Create a new entity with the given data.
 
 ```lua
-local result, err = client:pet():create({
+local result, err = client:Pet():create({
   name = --[[ `$STRING` ]],
 })
 ```
@@ -111,7 +111,7 @@ local result, err = client:pet():create({
 List entities matching the given criteria. Returns an array.
 
 ```lua
-local results, err = client:pet():list()
+local results, err = client:Pet():list()
 ```
 
 #### `load(reqmatch, ctrl) -> any, err`
@@ -119,7 +119,7 @@ local results, err = client:pet():list()
 Load a single entity matching the given criteria.
 
 ```lua
-local result, err = client:pet():load({ id = "pet_id" })
+local result, err = client:Pet():load({ id = "pet_id" })
 ```
 
 #### `remove(reqmatch, ctrl) -> any, err`
@@ -127,7 +127,7 @@ local result, err = client:pet():load({ id = "pet_id" })
 Remove the entity matching the given criteria.
 
 ```lua
-local result, err = client:pet():remove({ id = "pet_id" })
+local result, err = client:Pet():remove({ id = "pet_id" })
 ```
 
 ### Common Methods

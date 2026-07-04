@@ -85,7 +85,7 @@ Prepare a fetch definition without sending the request. Returns the
 ## PetEntity
 
 ```php
-$pet = $client->pet();
+$pet = $client->Pet();
 ```
 
 ### Fields
@@ -103,7 +103,7 @@ $pet = $client->pet();
 Create a new entity with the given data. Throws on error.
 
 ```php
-$result = $client->pet()->create([
+$result = $client->Pet()->create([
   "name" => /* `$STRING` */,
 ]);
 ```
@@ -113,7 +113,7 @@ $result = $client->pet()->create([
 List entities matching the given criteria. Returns an array. Throws on error.
 
 ```php
-$results = $client->pet()->list([]);
+$results = $client->Pet()->list([]);
 ```
 
 #### `load(array $reqmatch, ?array $ctrl = null): mixed`
@@ -121,7 +121,7 @@ $results = $client->pet()->list([]);
 Load a single entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->pet()->load(["id" => "pet_id"]);
+$result = $client->Pet()->load(["id" => "pet_id"]);
 ```
 
 #### `remove(array $reqmatch, ?array $ctrl = null): mixed`
@@ -129,7 +129,7 @@ $result = $client->pet()->load(["id" => "pet_id"]);
 Remove the entity matching the given criteria. Throws on error.
 
 ```php
-$result = $client->pet()->remove(["id" => "pet_id"]);
+$result = $client->Pet()->remove(["id" => "pet_id"]);
 ```
 
 ### Common Methods

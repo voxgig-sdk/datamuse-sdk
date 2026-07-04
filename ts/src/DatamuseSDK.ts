@@ -204,14 +204,7 @@ class DatamuseSDK {
 
 
 
-  _pet?: PetEntity
-
-  // Idiomatic facade: `client.pet.list()` / `client.pet.load({ id })`.
-  get pet(): PetEntity {
-    return (this._pet ??= new PetEntity(this, undefined))
-  }
-
-  /** @deprecated Use `client.pet` instead. */
+  // Entity access: `client.Pet().list()` / `client.Pet().load({ id })`.
   Pet(data?: any) {
     const self = this
     return new PetEntity(self,data)

@@ -233,10 +233,10 @@ class DatamuseSDK
 
     private $_pet = null;
 
-    // Idiomatic facade: $client->pet()->list() / ->load(["id" => ...]).
-    // Also serves the deprecated PascalCase alias Pet() (PHP method
-    // names are case-insensitive).
-    public function pet($data = null)
+    // Canonical facade: $client->Pet()->list() / ->load(["id" => ...]).
+    // PHP method names are case-insensitive, so lowercase $client->pet()
+    // resolves here too.
+    public function Pet($data = null)
     {
         require_once __DIR__ . '/entity/pet_entity.php';
         if ($data === null) {

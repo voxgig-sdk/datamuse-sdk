@@ -220,25 +220,15 @@ class DatamuseSDK:
         }
 
 
-    @property
-    def pet(self):
-        """Idiomatic facade: client.pet.list() / client.pet.load({"id": ...})."""
-        from entity.pet_entity import PetEntity
-        cached = getattr(self, "_pet", None)
-        if cached is None:
-            cached = PetEntity(self, None)
-            self._pet = cached
-        return cached
-
-    def Pet(self, data=None):
-        # Deprecated: use client.pet instead.
+    def Pet(self, data=None) -> "PetEntity":
+        """Entity factory: client.Pet().list({}) / client.Pet().load({"id": ...})."""
         from entity.pet_entity import PetEntity
         return PetEntity(self, data)
 
 
 
     @classmethod
-    def test(cls, testopts=None, sdkopts=None):
+    def test(cls, testopts=None, sdkopts=None) -> "DatamuseSDK":
         if sdkopts is None:
             sdkopts = {}
         sdkopts = vs.clone(sdkopts)
@@ -258,3 +248,9 @@ class DatamuseSDK:
         sdk.mode = "test"
 
         return sdk
+
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from entity.pet_entity import PetEntity

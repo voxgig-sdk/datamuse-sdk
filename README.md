@@ -26,9 +26,11 @@ import { DatamuseSDK } from '@voxgig-sdk/datamuse'
 
 const client = new DatamuseSDK()
 
-// List all pets
-const pets = await client.pet.list()
-console.log(pets.data)
+// List all pets (returns Pet[])
+const pets = await client.Pet().list()
+for (const pet of pets) {
+  console.log(pet)
+}
 ```
 
 See the [TypeScript README](ts/README.md) for the full guide.
@@ -83,12 +85,13 @@ from datamuse_sdk import DatamuseSDK
 
 client = DatamuseSDK()
 
-# List all pets
-pets = client.pet.list()
-print(pets)
+# List all pets (returns a list, raises on error)
+pets = client.Pet().list({})
+for pet in pets:
+    print(pet)
 
-# Load a specific pet
-pet = client.pet.load({"id": "example_id"})
+# Load a specific pet (returns the record, raises on error)
+pet = client.Pet().load({"id": "example_id"})
 print(pet)
 ```
 
@@ -100,12 +103,12 @@ require_once 'datamuse_sdk.php';
 
 $client = new DatamuseSDK();
 
-// List all pets (throws on error)
-$pets = $client->pet()->list();
+// List all pets (returns an array; throws on error)
+$pets = $client->Pet()->list();
 print_r($pets);
 
-// Load a specific pet
-$pet = $client->pet()->load(["id" => "example_id"]);
+// Load a specific pet (returns the bare record; throws on error)
+$pet = $client->Pet()->load(["id" => "example_id"]);
 print_r($pet);
 ```
 
@@ -128,12 +131,12 @@ require_relative "Datamuse_sdk"
 
 client = DatamuseSDK.new
 
-# List all pets
-pets = client.pet.list
+# List all pets (returns an Array; raises on error)
+pets = client.Pet.list
 puts pets
 
-# Load a specific pet
-pet = client.pet.load({ "id" => "example_id" })
+# Load a specific pet (returns the bare record; raises on error)
+pet = client.Pet.load({ "id" => "example_id" })
 puts pet
 ```
 
@@ -145,11 +148,11 @@ local sdk = require("datamuse_sdk")
 local client = sdk.new()
 
 -- List all pets
-local pets, err = client:pet():list()
+local pets, err = client:Pet():list()
 print(pets)
 
 -- Load a specific pet
-local pet, err = client:pet():load({ id = "example_id" })
+local pet, err = client:Pet():load({ id = "example_id" })
 print(pet)
 ```
 
@@ -162,22 +165,27 @@ in-memory mock, so unit tests run offline.
 
 ```ts
 const client = DatamuseSDK.test()
-const result = await client.pet.load({ id: 'test01' })
-// result.ok === true, result.data contains mock data
+const pet = await client.Pet().load({ id: 1 })
+// pet is a bare Pet populated with mock data
+console.log(pet)
 ```
 
 ### Python
 
 ```python
 client = DatamuseSDK.test()
-result = client.pet.load({"id": "test01"})
+pet = client.Pet().load({"id": "test01"})
+print(pet)
 ```
 
 ### PHP
 
 ```php
-$client = DatamuseSDK::test();
-$result = $client->pet()->load(["id" => "test01"]);
+// Seed fixture data so offline calls resolve without a live server.
+$client = DatamuseSDK::test([
+    "entity" => ["pet" => ["test01" => ["id" => "test01"]]],
+]);
+$pet = $client->Pet()->load(["id" => "test01"]);
 ```
 
 ### Golang
@@ -192,15 +200,18 @@ result, err := client.Pet(nil).Load(
 ### Ruby
 
 ```ruby
-client = DatamuseSDK.test
-result = client.pet.load({ "id" => "test01" })
+# Seed fixture data so offline calls resolve without a live server.
+client = DatamuseSDK.test({
+  "entity" => { "pet" => { "test01" => { "id" => "test01" } } },
+})
+pet = client.Pet.load({ "id" => "test01" })
 ```
 
 ### Lua
 
 ```lua
 local client = sdk.test()
-local result, err = client:pet():load({ id = "test01" })
+local result, err = client:Pet():load({ id = "test01" })
 ```
 
 ## How it works
@@ -248,6 +259,9 @@ const result = await client.direct({
   method: 'GET',
   params: { id: 'example' },
 })
+if (result instanceof Error) {
+  throw result
+}
 console.log(result.data)
 ```
 

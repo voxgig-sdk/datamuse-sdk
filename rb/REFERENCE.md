@@ -86,7 +86,7 @@ same parameters as `direct()`. Raises on error.
 ## PetEntity
 
 ```ruby
-pet = client.pet
+pet = client.Pet
 ```
 
 ### Fields
@@ -104,7 +104,7 @@ pet = client.pet
 Create a new entity with the given data. Raises on error.
 
 ```ruby
-result = client.pet.create({
+result = client.Pet.create({
   "name" => # `$STRING`,
 })
 ```
@@ -114,7 +114,7 @@ result = client.pet.create({
 List entities matching the given criteria. Returns an array. Raises on error.
 
 ```ruby
-results = client.pet.list(nil)
+results = client.Pet.list(nil)
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`
@@ -122,7 +122,7 @@ results = client.pet.list(nil)
 Load a single entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.pet.load({ "id" => "pet_id" })
+result = client.Pet.load({ "id" => "pet_id" })
 ```
 
 #### `remove(reqmatch, ctrl = nil) -> result`
@@ -130,7 +130,7 @@ result = client.pet.load({ "id" => "pet_id" })
 Remove the entity matching the given criteria. Raises on error.
 
 ```ruby
-result = client.pet.remove({ "id" => "pet_id" })
+result = client.Pet.remove({ "id" => "pet_id" })
 ```
 
 ### Common Methods

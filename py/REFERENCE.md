@@ -80,7 +80,7 @@ Prepare a fetch definition without sending. Returns the `fetchdef` and raises on
 ## PetEntity
 
 ```python
-pet = client.pet
+pet = client.Pet()
 ```
 
 ### Fields
@@ -98,8 +98,8 @@ pet = client.pet
 Create a new entity with the given data. Returns the created entity data and raises on error.
 
 ```python
-result = client.pet.create({
-    "name": # `$STRING`,
+result = client.Pet().create({
+    "name": ...,  # `$STRING`
 })
 ```
 
@@ -108,7 +108,9 @@ result = client.pet.create({
 List entities matching the given criteria. Returns a list and raises on error.
 
 ```python
-results = client.pet.list({})
+results = client.Pet().list({})
+for pet in results:
+    print(pet)
 ```
 
 #### `load(reqmatch, ctrl=None) -> dict`
@@ -116,7 +118,7 @@ results = client.pet.list({})
 Load a single entity matching the given criteria. Returns the entity data and raises on error.
 
 ```python
-result = client.pet.load({"id": "pet_id"})
+result = client.Pet().load({"id": "pet_id"})
 ```
 
 #### `remove(reqmatch, ctrl=None) -> dict`
@@ -124,7 +126,7 @@ result = client.pet.load({"id": "pet_id"})
 Remove the entity matching the given criteria. Raises on error.
 
 ```python
-result = client.pet.remove({"id": "pet_id"})
+result = client.Pet().remove({"id": "pet_id"})
 ```
 
 ### Common Methods

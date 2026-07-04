@@ -109,7 +109,7 @@ Alias for `DatamuseSDK.test()`.
 ## PetEntity
 
 ```ts
-const pet = client.pet
+const pet = client.Pet()
 ```
 
 ### Fields
@@ -127,7 +127,7 @@ const pet = client.pet
 Create a new entity with the given data.
 
 ```ts
-const result = await client.pet.create({
+const result = await client.Pet().create({
   name: /* `$STRING` */,
 })
 ```
@@ -137,7 +137,7 @@ const result = await client.pet.create({
 List entities matching the given criteria. Returns an array.
 
 ```ts
-const results = await client.pet.list()
+const results = await client.Pet().list()
 ```
 
 #### `load(match: object, ctrl?: object)`
@@ -145,7 +145,7 @@ const results = await client.pet.list()
 Load a single entity matching the given criteria.
 
 ```ts
-const result = await client.pet.load({ id: 'pet_id' })
+const result = await client.Pet().load({ id: 'pet_id' })
 ```
 
 #### `remove(match: object, ctrl?: object)`
@@ -153,7 +153,7 @@ const result = await client.pet.load({ id: 'pet_id' })
 Remove the entity matching the given criteria.
 
 ```ts
-const result = await client.pet.remove({ id: 'pet_id' })
+const result = await client.Pet().remove({ id: 'pet_id' })
 ```
 
 ### Common Methods
