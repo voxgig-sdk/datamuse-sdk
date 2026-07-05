@@ -15,8 +15,14 @@
 ---@field id string
 
 ---@class PetListMatch
+---@field id? number
+---@field name? string
+---@field tag? string
 
 ---@class PetCreateData
+---@field id number
+---@field name string
+---@field tag? string
 
 ---@class PetRemoveMatch
 ---@field id string

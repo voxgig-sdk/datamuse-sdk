@@ -34,7 +34,7 @@ PetLoadMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Pet#list (any subset of Pet fields).
+# Request payload for Pet#list.
 #
 # @!attribute [rw] id
 #   @return [Integer, nil]
@@ -51,13 +51,13 @@ PetListMatch = Struct.new(
   keyword_init: true
 )
 
-# Match filter for Pet#create (any subset of Pet fields).
+# Request payload for Pet#create.
 #
 # @!attribute [rw] id
-#   @return [Integer, nil]
+#   @return [Integer]
 #
 # @!attribute [rw] name
-#   @return [String, nil]
+#   @return [String]
 #
 # @!attribute [rw] tag
 #   @return [String, nil]

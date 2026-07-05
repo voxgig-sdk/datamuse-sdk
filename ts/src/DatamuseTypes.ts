@@ -15,9 +15,17 @@ export interface PetLoadMatch {
   id: string
 }
 
-export type PetListMatch = Partial<Pet>
+export interface PetListMatch {
+  id?: number
+  name?: string
+  tag?: string
+}
 
-export type PetCreateData = Partial<Pet>
+export interface PetCreateData {
+  id: number
+  name: string
+  tag?: string
+}
 
 export interface PetRemoveMatch {
   id: string

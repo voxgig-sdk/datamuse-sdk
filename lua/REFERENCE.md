@@ -90,9 +90,9 @@ local pet = client:Pet(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | ``$INTEGER`` | Yes |  |
-| `name` | ``$STRING`` | Yes |  |
-| `tag` | ``$STRING`` | No |  |
+| `id` | `number` | Yes |  |
+| `name` | `string` | Yes |  |
+| `tag` | `string` | No |  |
 
 ### Operations
 
@@ -102,7 +102,7 @@ Create a new entity with the given data.
 
 ```lua
 local result, err = client:Pet():create({
-  name = --[[ `$STRING` ]],
+  name = --[[ string ]],
 })
 ```
 

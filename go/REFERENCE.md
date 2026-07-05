@@ -97,9 +97,9 @@ pet := client.Pet(nil)
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | ``$INTEGER`` | Yes |  |
-| `name` | ``$STRING`` | Yes |  |
-| `tag` | ``$STRING`` | No |  |
+| `id` | `int` | Yes |  |
+| `name` | `string` | Yes |  |
+| `tag` | `string` | No |  |
 
 ### Operations
 
@@ -109,7 +109,7 @@ Create a new entity with the given data.
 
 ```go
 result, err := client.Pet(nil).Create(map[string]any{
-    "name": /* `$STRING` */,
+    "name": /* string */,
 }, nil)
 ```
 

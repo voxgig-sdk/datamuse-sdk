@@ -35,9 +35,12 @@ class PetListMatch(TypedDict, total=False):
     tag: str
 
 
-class PetCreateData(TypedDict, total=False):
+class PetCreateDataRequired(TypedDict):
     id: int
     name: str
+
+
+class PetCreateData(PetCreateDataRequired, total=False):
     tag: str
 
 

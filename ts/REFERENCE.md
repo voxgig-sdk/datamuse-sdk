@@ -116,9 +116,9 @@ const pet = client.Pet()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | ``$INTEGER`` | Yes |  |
-| `name` | ``$STRING`` | Yes |  |
-| `tag` | ``$STRING`` | No |  |
+| `id` | `number` | Yes |  |
+| `name` | `string` | Yes |  |
+| `tag` | `string` | No |  |
 
 ### Operations
 
@@ -128,7 +128,7 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Pet().create({
-  name: /* `$STRING` */,
+  name: /* string */,
 })
 ```
 

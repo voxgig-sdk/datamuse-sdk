@@ -8,7 +8,7 @@ Complete API reference for the Datamuse Ruby SDK.
 ### Constructor
 
 ```ruby
-require_relative 'datamuse_sdk'
+require_relative 'Datamuse_sdk'
 
 client = DatamuseSDK.new(options)
 ```
@@ -93,9 +93,9 @@ pet = client.Pet
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | ``$INTEGER`` | Yes |  |
-| `name` | ``$STRING`` | Yes |  |
-| `tag` | ``$STRING`` | No |  |
+| `id` | `Integer` | Yes |  |
+| `name` | `String` | Yes |  |
+| `tag` | `String` | No |  |
 
 ### Operations
 
@@ -105,16 +105,16 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Pet.create({
-  "name" => # `$STRING`,
+  "name" => "example", # String
 })
 ```
 
-#### `list(reqmatch, ctrl = nil) -> Array`
+#### `list(reqmatch = nil, ctrl = nil) -> Array`
 
-List entities matching the given criteria. Returns an array. Raises on error.
+List entities matching the given criteria (call with no argument to list all). Returns an array. Raises on error.
 
 ```ruby
-results = client.Pet.list(nil)
+results = client.Pet.list
 ```
 
 #### `load(reqmatch, ctrl = nil) -> result`

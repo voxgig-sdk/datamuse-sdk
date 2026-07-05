@@ -26,7 +26,7 @@ class PetLoadMatch
     public string $id;
 }
 
-/** Match filter for Pet#list (any subset of Pet fields). */
+/** Request payload for Pet#list. */
 class PetListMatch
 {
     public ?int $id = null;
@@ -34,11 +34,11 @@ class PetListMatch
     public ?string $tag = null;
 }
 
-/** Match filter for Pet#create (any subset of Pet fields). */
+/** Request payload for Pet#create. */
 class PetCreateData
 {
-    public ?int $id = null;
-    public ?string $name = null;
+    public int $id;
+    public string $name;
     public ?string $tag = null;
 }
 

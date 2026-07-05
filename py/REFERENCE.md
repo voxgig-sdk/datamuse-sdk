@@ -87,9 +87,9 @@ pet = client.Pet()
 
 | Field | Type | Required | Description |
 | --- | --- | --- | --- |
-| `id` | ``$INTEGER`` | Yes |  |
-| `name` | ``$STRING`` | Yes |  |
-| `tag` | ``$STRING`` | No |  |
+| `id` | `int` | Yes |  |
+| `name` | `str` | Yes |  |
+| `tag` | `str` | No |  |
 
 ### Operations
 
@@ -99,16 +99,16 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Pet().create({
-    "name": ...,  # `$STRING`
+    "name": "example",  # str
 })
 ```
 
-#### `list(reqmatch, ctrl=None) -> list`
+#### `list(reqmatch=None, ctrl=None) -> list`
 
-List entities matching the given criteria. Returns a list and raises on error.
+List entities matching the given criteria. The match is optional — call `list()` with no argument to list all records. Returns a list and raises on error.
 
 ```python
-results = client.Pet().list({})
+results = client.Pet().list()
 for pet in results:
     print(pet)
 ```

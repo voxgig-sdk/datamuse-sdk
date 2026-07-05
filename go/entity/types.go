@@ -20,19 +20,17 @@ type PetLoadMatch struct {
 	Id string `json:"id"`
 }
 
-// PetListMatch mirrors the pet fields as an all-optional match
-// filter (Go analog of Partial<Pet>).
+// PetListMatch is the typed request payload for Pet.ListTyped.
 type PetListMatch struct {
 	Id *int `json:"id,omitempty"`
 	Name *string `json:"name,omitempty"`
 	Tag *string `json:"tag,omitempty"`
 }
 
-// PetCreateData mirrors the pet fields as an all-optional match
-// filter (Go analog of Partial<Pet>).
+// PetCreateData is the typed request payload for Pet.CreateTyped.
 type PetCreateData struct {
-	Id *int `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
+	Id int `json:"id"`
+	Name string `json:"name"`
 	Tag *string `json:"tag,omitempty"`
 }
 

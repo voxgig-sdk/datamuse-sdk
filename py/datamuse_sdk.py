@@ -221,7 +221,7 @@ class DatamuseSDK:
 
 
     def Pet(self, data=None) -> "PetEntity":
-        """Entity factory: client.Pet().list({}) / client.Pet().load({"id": ...})."""
+        """Entity factory: client.Pet().list() / client.Pet().load({"id": ...})."""
         from entity.pet_entity import PetEntity
         return PetEntity(self, data)
 
