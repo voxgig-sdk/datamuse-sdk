@@ -6,9 +6,6 @@
     },
     "kit": {
       "config": {
-        "auth": {
-          "prefix": "Bearer"
-        },
         "docs_order": [
           "ts",
           "py",
@@ -407,14 +404,17 @@
           "name": "MIT",
           "url": "http://github.com/gruntjs/grunt/blob/master/LICENSE-MIT"
         },
+        "meta_source": "https://www.freepublicapis.com",
         "servers": [
           {
             "url": "http://api.datamuse.com"
           }
         ],
+        "summary": "A word-finding tool for developers",
         "termsOfService": "http://www.datamuse.com/api/",
         "title": "Datamuse API",
-        "version": "1.0.0"
+        "version": "1.0.0",
+        "website": "http://datamuse.com"
       },
       "option": {},
       "target": {
@@ -467,6 +467,9 @@
           },
           "name": "go-cli",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },
@@ -517,6 +520,9 @@
           },
           "name": "go-mcp",
           "phase": {
+            "agentguide": {
+              "active": false
+            },
             "entity": {
               "active": false
             },

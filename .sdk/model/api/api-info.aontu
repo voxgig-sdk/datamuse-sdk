@@ -19,10 +19,10 @@ main: {
           url: "http://api.datamuse.com"
         }
       ]
+      summary: "A word-finding tool for developers"
       termsOfService: "http://www.datamuse.com/api/"
       title: "Datamuse API"
       version: "1.0.0"
+      website: "http://datamuse.com"
     }
   }
-}
-

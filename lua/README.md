@@ -59,7 +59,7 @@ print(pet)
 
 ```lua
 -- Create
-local created, err = client:Pet():create({ name = "example" })
+local created, err = client:Pet():create({ id = 1, name = "example_name" })
 if err then error(err) end
 
 -- Remove
@@ -304,7 +304,8 @@ local pets, err = client:Pet():list()
 
 ```lua
 local pet, err = client:Pet():create({
-  name = nil, -- string
+  id = 1, -- number
+  name = "example_name", -- string
 })
 ```
 

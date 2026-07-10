@@ -60,7 +60,7 @@ end
 
 ```ruby
 # create returns the bare created Pet record.
-created = client.Pet.create({ "name" => "example" })
+created = client.Pet.create({ "id" => 1, "name" => "example_name" })
 
 # Remove
 client.Pet.remove({ "id" => created["id"] })
@@ -316,7 +316,8 @@ pets = client.Pet.list
 
 ```ruby
 pet = client.Pet.create({
-  "name" => "example", # String
+  "id" => 1, # Integer
+  "name" => "example_name", # String
 })
 ```
 

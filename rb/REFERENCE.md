@@ -105,7 +105,8 @@ Create a new entity with the given data. Raises on error.
 
 ```ruby
 result = client.Pet.create({
-  "name" => "example", # String
+  "id" => 1, # Integer
+  "name" => "example_name", # String
 })
 ```
 

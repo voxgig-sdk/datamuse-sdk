@@ -63,6 +63,7 @@ try {
 ```ts
 // Create — returns the created Pet
 const created = await client.Pet().create({
+  id: 1,
   name: 'example_name',
 })
 
@@ -366,7 +367,8 @@ const pets = await client.Pet().list()
 
 ```ts
 const pet = await client.Pet().create({
-  name: /* string */,
+  id: 1,
+  name: 'example_name',
 })
 ```
 

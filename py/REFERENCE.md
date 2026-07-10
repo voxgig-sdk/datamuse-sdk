@@ -99,7 +99,8 @@ Create a new entity with the given data. Returns the created entity data and rai
 
 ```python
 result = client.Pet().create({
-    "name": "example",  # str
+    "id": 1,  # int
+    "name": "example_name",  # str
 })
 ```
 

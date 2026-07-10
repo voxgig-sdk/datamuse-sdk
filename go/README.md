@@ -60,21 +60,21 @@ func main() {
     }
 
     // Load a single pet — the value is the loaded record.
-    pet, err := client.Pet(nil).Load(map[string]any{"id": "example"}, nil)
+    pet, err := client.Pet(nil).Load(map[string]any{"id": "example_id"}, nil)
     if err != nil {
         panic(err)
     }
     fmt.Println(pet)
 
     // Create a pet.
-    created, err := client.Pet(nil).Create(map[string]any{"name": "example"}, nil)
+    created, err := client.Pet(nil).Create(map[string]any{"id": 1, "name": "example_name"}, nil)
     if err != nil {
         panic(err)
     }
     fmt.Println(created)
 
     // Remove a pet.
-    removed, err := client.Pet(nil).Remove(map[string]any{"id": "example"}, nil)
+    removed, err := client.Pet(nil).Remove(map[string]any{"id": "example_id"}, nil)
     if err != nil {
         panic(err)
     }
@@ -306,9 +306,9 @@ Create an instance: `pet := client.Pet(nil)`
 
 | Method | Description |
 | --- | --- |
-| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `List(match, ctrl)` | List entities matching the criteria. |
 | `Load(match, ctrl)` | Load a single entity by match criteria. |
+| `Create(data, ctrl)` | Create a new entity with the given data. |
 | `Remove(match, ctrl)` | Remove the matching entity. |
 
 #### Fields
@@ -343,8 +343,13 @@ fmt.Println(pets) // the array of records
 
 ```go
 result, err := client.Pet(nil).Create(map[string]any{
-    "name": /* string */,
+    "id": 1,
+    "name": "example_name",
 }, nil)
+if err != nil {
+    panic(err)
+}
+fmt.Println(result)
 ```
 
 

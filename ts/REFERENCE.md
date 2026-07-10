@@ -128,7 +128,8 @@ Create a new entity with the given data.
 
 ```ts
 const result = await client.Pet().create({
-  name: /* string */,
+  id: 1,
+  name: 'example_name',
 })
 ```
 

@@ -66,7 +66,7 @@ except Exception as err:
 
 ```python
 # Create — returns the bare created record (a dict)
-created = client.Pet().create({"name": "example"})
+created = client.Pet().create({"id": 1, "name": "example_name"})
 
 # Remove
 client.Pet().remove({"id": created["id"]})
@@ -317,7 +317,8 @@ pets = client.Pet().list()
 
 ```python
 pet = client.Pet().create({
-    "name": "example",  # str
+    "id": 1,  # int
+    "name": "example_name",  # str
 })
 ```
 
