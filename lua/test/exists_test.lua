@@ -1,4 +1,4 @@
--- ProjectName SDK exists test
+-- Datamuse SDK exists test
 
 local sdk = require("datamuse_sdk")
 
