@@ -73,7 +73,7 @@ class PetEntityTest < Minitest::Test
       Vs.getpath(setup[:data], "new.pet"), "pet_ref01"))
 
     pet_ref01_data_result = pet_ref01_ent.create(pet_ref01_data, nil)
-    pet_ref01_data = Helpers.to_map(pet_ref01_data_result)
+    pet_ref01_data = Helpers.to_map(pet_ref01_data_result.respond_to?(:data_get) ? pet_ref01_data_result.data_get : pet_ref01_data_result)
     assert !pet_ref01_data.nil?
     assert !pet_ref01_data["id"].nil?
 
@@ -93,7 +93,7 @@ class PetEntityTest < Minitest::Test
       "id" => pet_ref01_data["id"],
     }
     pet_ref01_data_dt0_loaded = pet_ref01_ent.load(pet_ref01_match_dt0, nil)
-    pet_ref01_data_dt0_load_result = Helpers.to_map(pet_ref01_data_dt0_loaded)
+    pet_ref01_data_dt0_load_result = Helpers.to_map(pet_ref01_data_dt0_loaded.respond_to?(:data_get) ? pet_ref01_data_dt0_loaded.data_get : pet_ref01_data_dt0_loaded)
     assert !pet_ref01_data_dt0_load_result.nil?
     assert_equal pet_ref01_data_dt0_load_result["id"], pet_ref01_data["id"]
 

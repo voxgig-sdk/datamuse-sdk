@@ -63,7 +63,7 @@ local created, err = client:Pet():create({ id = 1, name = "example_name" })
 if err then error(err) end
 
 -- Remove
-client:Pet():remove({ id = created["id"] })
+client:Pet():remove({ id = created:data_get()["id"] })
 ```
 
 

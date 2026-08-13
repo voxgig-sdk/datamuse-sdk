@@ -52,7 +52,7 @@ except Exception as err:
 
 ### 3. Load a pet
 
-`load()` returns the bare record (a `dict`) and raises on error.
+`load()` returns the ENTITY — call data_get() for the record — and raises on error.
 
 ```python
 try:
@@ -65,11 +65,11 @@ except Exception as err:
 ### 4. Create, update, and remove
 
 ```python
-# Create — returns the bare created record (a dict)
+# Create — returns the ENTITY (call data_get() for the record)
 created = client.Pet().create({"id": 1, "name": "example_name"})
 
 # Remove
-client.Pet().remove({"id": created["id"]})
+client.Pet().remove({"id": created.data_get()["id"]})
 ```
 
 
@@ -146,7 +146,8 @@ Create a mock client for unit testing — no server required:
 ```python
 client = DatamuseSDK.test()
 
-# Entity ops return the bare record and raise on error.
+# Entity ops return the ENTITY and raises on error;
+# call data_get() for the record.
 pet = client.Pet().list()
 # pet contains the mock response record
 ```
@@ -245,7 +246,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (a `dict` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (a `dict` for single-entity
 ops, a `list` for `list`) and raise on error. Wrap calls in
 `try`/`except` to handle failures.
 

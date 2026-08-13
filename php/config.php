@@ -72,6 +72,7 @@ class DatamuseConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'POST',
                   'orig' => '/words',
                   'parts' => [
@@ -117,6 +118,7 @@ class DatamuseConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/words',
                   'parts' => [
@@ -156,6 +158,7 @@ class DatamuseConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'GET',
                   'orig' => '/pets/{id}',
                   'parts' => [
@@ -195,6 +198,7 @@ class DatamuseConfig
                       ],
                     ],
                   ],
+                  'kind' => 'http',
                   'method' => 'DELETE',
                   'orig' => '/pets/{id}',
                   'parts' => [

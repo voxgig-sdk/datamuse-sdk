@@ -14,12 +14,12 @@ from __future__ import annotations
 
 from urllib.parse import quote
 
-from config import make_config
-from features import _make_feature
-from core.control import DatamuseControl
-from core.error import DatamuseError
-from core.result import DatamuseResult
-from core.spec import DatamuseSpec
+from datamuse_sdk.config import make_config
+from datamuse_sdk.features import _make_feature
+from datamuse_sdk.core.control import DatamuseControl
+from datamuse_sdk.core.error import DatamuseError
+from datamuse_sdk.core.result import DatamuseResult
+from datamuse_sdk.core.spec import DatamuseSpec
 
 
 # True when this SDK was generated with the named feature.

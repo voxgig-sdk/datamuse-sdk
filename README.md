@@ -38,9 +38,18 @@ network, and no credentials:
 ### TypeScript
 
 ```ts
-const client = DatamuseSDK.test()
+// The offline mock starts EMPTY — seed it with the records the test needs.
+// Shape: { entity: { <entity-name>: { <id>: <record> } } }
+const client = DatamuseSDK.test({
+  entity: {
+    pet: {
+      test01: { id: 'test01', name: 'example_name' },
+    },
+  },
+})
 const pets = await client.Pet().list()
-// pets is an array of bare Pet records populated with mock data
+// pets is an array of Pet entities, populated with mock data
+// — call pets[0].data() for the record itself
 console.log(pets)
 ```
 
@@ -110,7 +119,7 @@ import { DatamuseSDK } from '@voxgig-sdk/datamuse'
 
 const client = new DatamuseSDK()
 
-// List all pets (returns Pet[])
+// List all pets (returns PetEntity[] — .data() for the record)
 const pets = await client.Pet().list()
 for (const pet of pets) {
   console.log(pet)
@@ -191,7 +200,7 @@ $client = new DatamuseSDK();
 $pets = $client->Pet()->list();
 print_r($pets);
 
-// Load a specific pet (returns the bare record; throws on error)
+// Load a specific pet (returns the ENTITY; call data_get() for the record; throws on error)
 $pet = $client->Pet()->load(["id" => "example_id"]);
 print_r($pet);
 ```
@@ -222,7 +231,7 @@ client = DatamuseSDK.new
 pets = client.Pet.list
 puts pets
 
-# Load a specific pet (returns the bare record; raises on error)
+# Load a specific pet (returns the ENTITY; call data_get for the record)
 pet = client.Pet.load({ "id" => "example_id" })
 puts pet
 ```
@@ -359,6 +368,9 @@ Pass custom features via the `extend` option at construction time.
 
 This SDK is generated from the upstream OpenAPI specification. It is an
 unofficial client and is not affiliated with the API provider.
+
+The OpenAPI spec(s) this SDK was generated from are kept in the
+[`.sdk/def/`](.sdk/def/) folder.
 
 - Upstream API: [http://www.onelook.com/?c=about&sel=api#feedback](http://www.onelook.com/?c=about&sel=api#feedback)
 

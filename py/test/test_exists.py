@@ -1,4 +1,4 @@
-# ProjectName SDK exists test
+# Datamuse SDK exists test
 
 import pytest
 from datamuse_sdk import DatamuseSDK

@@ -106,7 +106,7 @@ func TestPetEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("create failed: %v", err)
 		}
-		petRef01Data = core.ToMapAny(petRef01DataResult)
+		petRef01Data = core.ToMapAny(entityData(petRef01DataResult))
 		if petRef01Data == nil {
 			t.Fatal("expected create result to be a map")
 		}
@@ -139,7 +139,7 @@ func TestPetEntity(t *testing.T) {
 		if err != nil {
 			t.Fatalf("load failed: %v", err)
 		}
-		petRef01DataDt0LoadResult := core.ToMapAny(petRef01DataDt0Loaded)
+		petRef01DataDt0LoadResult := core.ToMapAny(entityData(petRef01DataDt0Loaded))
 		if petRef01DataDt0LoadResult == nil {
 			t.Fatal("expected load result to be a map")
 		}

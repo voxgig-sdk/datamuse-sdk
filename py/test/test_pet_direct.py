@@ -3,9 +3,9 @@
 import json
 import pytest
 
-from utility.voxgig_struct import voxgig_struct as vs
+from datamuse_sdk.utility.voxgig_struct import voxgig_struct as vs
 from datamuse_sdk import DatamuseSDK
-from core import helpers
+from datamuse_sdk.core import helpers
 from test import runner
 
 

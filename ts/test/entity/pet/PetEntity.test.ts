@@ -62,14 +62,14 @@ describe('PetEntity', async () => {
     const pet_ref01_ent = client.Pet()
     let pet_ref01_data = setup.data.new.pet['pet_ref01']
 
-    pet_ref01_data = await pet_ref01_ent.create(pet_ref01_data)
+    pet_ref01_data = (await pet_ref01_ent.create(pet_ref01_data)).data()
     assert(null != pet_ref01_data.id)
 
 
     // LIST
     const pet_ref01_match: any = {}
 
-    const pet_ref01_list = await pet_ref01_ent.list(pet_ref01_match)
+    const pet_ref01_list = (await pet_ref01_ent.list(pet_ref01_match)).map((e: any) => e.data())
 
     assert(!isempty(select(pet_ref01_list, { id: pet_ref01_data.id })))
 
@@ -77,7 +77,7 @@ describe('PetEntity', async () => {
     // LOAD
     const pet_ref01_match_dt0: any = {}
     pet_ref01_match_dt0.id = pet_ref01_data.id
-    const pet_ref01_data_dt0 = await pet_ref01_ent.load(pet_ref01_match_dt0)
+    const pet_ref01_data_dt0 = (await pet_ref01_ent.load(pet_ref01_match_dt0)).data()
     assert(pet_ref01_data_dt0.id === pet_ref01_data.id)
 
 
@@ -89,7 +89,7 @@ describe('PetEntity', async () => {
     // LIST
     const pet_ref01_match_rt0: any = {}
 
-    const pet_ref01_list_rt0 = await pet_ref01_ent.list(pet_ref01_match_rt0)
+    const pet_ref01_list_rt0 = (await pet_ref01_ent.list(pet_ref01_match_rt0)).map((e: any) => e.data())
 
     assert(isempty(select(pet_ref01_list_rt0, { id: pet_ref01_data.id })))
 

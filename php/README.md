@@ -49,7 +49,7 @@ try {
 
 ```php
 try {
-    // load() returns the bare Pet record (throws on error).
+    // load() returns the ENTITY — call data_get() for the Pet record (throws on error).
     $pet = $client->Pet()->load(["id" => "example_id"]);
     print_r($pet);
 } catch (\Throwable $err) {
@@ -60,11 +60,11 @@ try {
 ### 4. Create, update, and remove
 
 ```php
-// create() returns the bare created Pet record.
+// create() returns the ENTITY — call data_get() for the created Pet record.
 $created = $client->Pet()->create(["id" => 1, "name" => "example_name"]);
 
 // Remove
-$client->Pet()->remove(["id" => $created["id"]]);
+$client->Pet()->remove(["id" => $created->data_get()["id"]]);
 ```
 
 
@@ -150,7 +150,8 @@ $client = DatamuseSDK::test([
     "entity" => ["pet" => ["test01" => ["id" => "test01"]]],
 ]);
 
-// Entity ops return the bare mock record (throws on error).
+// Entity ops return the ENTITY (throws on error);
+// call data_get() for the mock record.
 $pet = $client->Pet()->list();
 print_r($pet);
 ```
@@ -252,7 +253,7 @@ All entities share the same interface.
 
 ### Result shape
 
-Entity operations return the bare result data (an `array` for single-entity
+Entity operations return the ENTITY (call data_get() for the record) (an `array` for single-entity
 ops, a `list` for `list`) and throw on error. Wrap calls in
 `try`/`catch` to handle failures.
 
@@ -311,7 +312,7 @@ Create an instance: `$pet = $client->Pet();`
 #### Example: Load
 
 ```php
-// load() returns the bare Pet record (throws on error).
+// load() returns the ENTITY — call data_get() for the Pet record (throws on error).
 $pet = $client->Pet()->load(["id" => "pet_id"]);
 ```
 

@@ -35,7 +35,9 @@ const client = new DatamuseSDK()
 
 ### 2. List pet records
 
-`list()` resolves to an array of Pet objects — iterate it directly:
+`list()` resolves to an array of Pet ENTITIES — every operation
+resolves to entities, not raw records. Iterate them directly, and call
+`.data()` on one for the record it holds:
 
 ```ts
 const pets = await client.Pet().list()
@@ -61,7 +63,7 @@ try {
 ### 4. Create, update, and remove
 
 ```ts
-// Create — returns the created Pet
+// Create — returns the created Pet ENTITY (.data() for the record)
 const created = await client.Pet().create({
   id: 1,
   name: 'example_name',
@@ -69,7 +71,7 @@ const created = await client.Pet().create({
 
 // Remove
 await client.Pet().remove({
-  id: created.id!,
+  id: 'example_id',
 })
 ```
 
@@ -148,7 +150,8 @@ Create a mock client for unit testing — no server required:
 const client = DatamuseSDK.test()
 
 const pet = await client.Pet().list()
-// pet is a bare entity populated with mock response data
+// pet is the entity, populated with mock response data
+// — call pet.data() for the record itself
 console.log(pet)
 ```
 

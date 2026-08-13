@@ -16,11 +16,11 @@
 import pytest
 
 from datamuse_sdk import DatamuseSDK
-from core.error import DatamuseError
-from core.result import DatamuseResult
-from core.response import DatamuseResponse
-from core.spec import DatamuseSpec
-from feature.base_feature import DatamuseBaseFeature
+from datamuse_sdk.core.error import DatamuseError
+from datamuse_sdk.core.result import DatamuseResult
+from datamuse_sdk.core.response import DatamuseResponse
+from datamuse_sdk.core.spec import DatamuseSpec
+from datamuse_sdk.feature.base_feature import DatamuseBaseFeature
 
 
 def _client():

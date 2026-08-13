@@ -48,7 +48,7 @@ end
 
 ```ruby
 begin
-  # load returns the bare Pet record (raises on error).
+  # load returns the ENTITY — call data_get for the Pet record (raises on error).
   pet = client.Pet.load({ "id" => "example_id" })
   puts pet
 rescue => err
@@ -59,11 +59,11 @@ end
 ### 4. Create, update, and remove
 
 ```ruby
-# create returns the bare created Pet record.
+# create returns the ENTITY — call data_get for the created Pet record.
 created = client.Pet.create({ "id" => 1, "name" => "example_name" })
 
 # Remove
-client.Pet.remove({ "id" => created["id"] })
+client.Pet.remove({ "id" => created.data_get["id"] })
 ```
 
 
@@ -144,7 +144,8 @@ client = DatamuseSDK.test({
   "entity" => { "pet" => { "test01" => { "id" => "test01" } } },
 })
 
-# Entity ops return the bare mock record (raises on error).
+# Entity ops return the ENTITY (raises on error);
+# call data_get for the mock record.
 pet = client.Pet.list()
 puts pet
 ```
@@ -301,7 +302,7 @@ Create an instance: `pet = client.Pet`
 #### Example: Load
 
 ```ruby
-# load returns the bare Pet record (raises on error).
+# load returns the ENTITY — call data_get for the Pet record (raises on error).
 pet = client.Pet.load({ "id" => "pet_id" })
 ```
 

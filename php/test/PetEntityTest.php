@@ -83,7 +83,7 @@ class PetEntityTest extends TestCase
             Vs::getpath($setup["data"], "new.pet"), "pet_ref01"));
 
         $pet_ref01_data_result = $pet_ref01_ent->create($pet_ref01_data, null);
-        $pet_ref01_data = Helpers::to_map($pet_ref01_data_result);
+        $pet_ref01_data = Helpers::to_map(is_object($pet_ref01_data_result) && method_exists($pet_ref01_data_result, 'data_get') ? $pet_ref01_data_result->data_get() : $pet_ref01_data_result);
         $this->assertNotNull($pet_ref01_data);
         $this->assertNotNull($pet_ref01_data["id"]);
 
@@ -103,7 +103,7 @@ class PetEntityTest extends TestCase
             "id" => $pet_ref01_data["id"],
         ];
         $pet_ref01_data_dt0_loaded = $pet_ref01_ent->load($pet_ref01_match_dt0, null);
-        $pet_ref01_data_dt0_load_result = Helpers::to_map($pet_ref01_data_dt0_loaded);
+        $pet_ref01_data_dt0_load_result = Helpers::to_map(is_object($pet_ref01_data_dt0_loaded) && method_exists($pet_ref01_data_dt0_loaded, 'data_get') ? $pet_ref01_data_dt0_loaded->data_get() : $pet_ref01_data_dt0_loaded);
         $this->assertNotNull($pet_ref01_data_dt0_load_result);
         $this->assertEquals($pet_ref01_data_dt0_load_result["id"], $pet_ref01_data["id"]);
 
