@@ -28,7 +28,7 @@ class DatamuseSDK
     utility = DatamuseUtility.new
     @_utility = utility
 
-    config = DatamuseConfig.make_config
+    config = DatamuseConfig.shared_config
 
     @_rootctx = utility.make_context.call({
       "client" => self,

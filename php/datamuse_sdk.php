@@ -40,7 +40,7 @@ class DatamuseSDK
         $utility = new DatamuseUtility();
         $this->_utility = $utility;
 
-        $config = DatamuseConfig::make_config();
+        $config = DatamuseConfig::shared_config();
 
         $this->_rootctx = ($utility->make_context)([
             "client" => $this,

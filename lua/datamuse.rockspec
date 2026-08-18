@@ -23,6 +23,7 @@ build = {
   modules = {
     ["datamuse_sdk"] = "datamuse_sdk.lua",
     ["config"] = "config.lua",
+    ["config_shared"] = "config_shared.lua",
     ["features"] = "features.lua",
   }
 }

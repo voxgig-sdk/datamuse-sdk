@@ -40,7 +40,7 @@ class PetEntityTest extends TestCase
         $this->assertCount(3, $seen);
 
         // Inbound: streaming active -> yields each item from the feature.
-        $cfg = DatamuseConfig::make_config();
+        $cfg = DatamuseConfig::shared_config();
         if (isset($cfg["feature"]) && is_array($cfg["feature"]) && isset($cfg["feature"]["streaming"])) {
             $sdk = DatamuseSDK::test($seed, ["feature" => ["streaming" => ["active" => true]]]);
             $got = [];
