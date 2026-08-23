@@ -33,6 +33,9 @@ class DatamuseConfig
         return [
             "main" => [
                 "name" => "Datamuse",
+                "slug" => "datamuse",
+                "version" => "0.0.1",
+                "target" => "php",
             ],
             "feature" => [
                 "test" => [

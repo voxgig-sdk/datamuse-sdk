@@ -19,6 +19,9 @@ module DatamuseConfig
     {
       "main" => {
         "name" => "Datamuse",
+        "slug" => "datamuse",
+        "version" => "0.0.1",
+        "target" => "rb",
       },
       "feature" => {
         "test" => {
