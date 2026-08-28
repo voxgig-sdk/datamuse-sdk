@@ -36,22 +36,21 @@ PetLoadMatch = Struct.new(
 
 # Request payload for Pet#list.
 #
-# @!attribute [rw] id
+# @!attribute [rw] limit
 #   @return [Integer, nil]
 #
-# @!attribute [rw] name
-#   @return [String, nil]
-#
 # @!attribute [rw] tag
-#   @return [String, nil]
+#   @return [Object, nil]
 PetListMatch = Struct.new(
-  :id,
-  :name,
+  :limit,
   :tag,
   keyword_init: true
 )
 
 # Request payload for Pet#create.
+#
+# @!attribute [rw] pet
+#   @return [Hash]
 #
 # @!attribute [rw] id
 #   @return [Integer]
@@ -62,6 +61,7 @@ PetListMatch = Struct.new(
 # @!attribute [rw] tag
 #   @return [String, nil]
 PetCreateData = Struct.new(
+  :pet,
   :id,
   :name,
   :tag,

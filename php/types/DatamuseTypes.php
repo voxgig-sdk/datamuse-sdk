@@ -29,14 +29,14 @@ class PetLoadMatch
 /** Request payload for Pet#list. */
 class PetListMatch
 {
-    public ?int $id = null;
-    public ?string $name = null;
-    public ?string $tag = null;
+    public ?int $limit = null;
+    public mixed $tag = null;
 }
 
 /** Request payload for Pet#create. */
 class PetCreateData
 {
+    public array $pet;
     public int $id;
     public string $name;
     public ?string $tag = null;

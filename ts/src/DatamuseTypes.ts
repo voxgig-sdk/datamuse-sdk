@@ -16,12 +16,12 @@ export interface PetLoadMatch {
 }
 
 export interface PetListMatch {
-  id?: number
-  name?: string
-  tag?: string
+  limit?: number
+  tag?: any
 }
 
 export interface PetCreateData {
+  pet: Record<string, any>
   id: number
   name: string
   tag?: string

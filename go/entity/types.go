@@ -26,13 +26,13 @@ type PetLoadMatch struct {
 
 // PetListMatch is the typed request payload for Pet.ListTyped.
 type PetListMatch struct {
-	Id *int `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Tag *string `json:"tag,omitempty"`
+	Limit *int `json:"limit,omitempty"`
+	Tag *any `json:"tag,omitempty"`
 }
 
 // PetCreateData is the typed request payload for Pet.CreateTyped.
 type PetCreateData struct {
+	Pet map[string]any `json:"pet"`
 	Id int `json:"id"`
 	Name string `json:"name"`
 	Tag *string `json:"tag,omitempty"`

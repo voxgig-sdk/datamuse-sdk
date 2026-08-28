@@ -30,12 +30,12 @@ class PetLoadMatch(TypedDict):
 
 
 class PetListMatch(TypedDict, total=False):
-    id: int
-    name: str
-    tag: str
+    limit: int
+    tag: Any
 
 
 class PetCreateDataRequired(TypedDict):
+    pet: dict
     id: int
     name: str
 

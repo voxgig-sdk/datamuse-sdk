@@ -15,11 +15,11 @@
 ---@field id string
 
 ---@class PetListMatch
----@field id? number
----@field name? string
----@field tag? string
+---@field limit? number
+---@field tag? any
 
 ---@class PetCreateData
+---@field pet table
 ---@field id number
 ---@field name string
 ---@field tag? string
