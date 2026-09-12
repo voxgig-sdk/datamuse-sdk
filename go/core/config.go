@@ -36,6 +36,7 @@ func MakeConfig() map[string]any {
 			"pet": map[string]any{
 				"fields": []any{
 					map[string]any{
+						"format": "int64",
 						"name": "id",
 						"req": true,
 						"type": "`$INTEGER`",
@@ -49,6 +50,10 @@ func MakeConfig() map[string]any {
 						"name": "tag",
 						"type": "`$STRING`",
 					},
+				},
+				"id": map[string]any{
+					"field": "id",
+					"name": "id",
 				},
 				"name": "pet",
 				"op": map[string]any{
@@ -71,8 +76,10 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "POST",
 								"orig": "/words",
-								"parts": []any{
-									"words",
+								"segments": []any{
+									map[string]any{
+										"lit": "words",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -82,6 +89,9 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"words",
 								},
 							},
 						},
@@ -110,8 +120,10 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/words",
-								"parts": []any{
-									"words",
+								"segments": []any{
+									map[string]any{
+										"lit": "words",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -122,6 +134,9 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"words",
 								},
 							},
 						},
@@ -145,9 +160,13 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "GET",
 								"orig": "/pets/{id}",
-								"parts": []any{
-									"pets",
-									"{id}",
+								"segments": []any{
+									map[string]any{
+										"lit": "pets",
+									},
+									map[string]any{
+										"var": "id",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -157,6 +176,10 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"pets",
+									"{id}",
 								},
 							},
 						},
@@ -180,9 +203,13 @@ func MakeConfig() map[string]any {
 								"kind": "http",
 								"method": "DELETE",
 								"orig": "/pets/{id}",
-								"parts": []any{
-									"pets",
-									"{id}",
+								"segments": []any{
+									map[string]any{
+										"lit": "pets",
+									},
+									map[string]any{
+										"var": "id",
+									},
 								},
 								"select": map[string]any{
 									"exist": []any{
@@ -192,6 +219,10 @@ func MakeConfig() map[string]any {
 								"transform": map[string]any{
 									"req": "`reqdata`",
 									"res": "`body`",
+								},
+								"parts": []any{
+									"pets",
+									"{id}",
 								},
 							},
 						},
@@ -203,6 +234,17 @@ func MakeConfig() map[string]any {
 			},
 		},
 	}
+}
+
+// The plugin definitions the model selected per feature, as []any so a
+// feature package can consume them without core naming its types. Empty
+// when no active feature declares active plugin groups for this target.
+var featurePlugins = map[string][]any{
+}
+
+// FeaturePlugins is the definitions list for one feature's chain.
+func FeaturePlugins(name string) []any {
+	return featurePlugins[name]
 }
 
 var (

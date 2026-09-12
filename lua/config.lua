@@ -32,6 +32,7 @@ local function make_config()
       ["pet"] = {
         ["fields"] = {
           {
+            ["format"] = "int64",
             ["name"] = "id",
             ["req"] = true,
             ["type"] = "`$INTEGER`",
@@ -45,6 +46,10 @@ local function make_config()
             ["name"] = "tag",
             ["type"] = "`$STRING`",
           },
+        },
+        ["id"] = {
+          ["field"] = "id",
+          ["name"] = "id",
         },
         ["name"] = "pet",
         ["op"] = {
@@ -67,8 +72,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "POST",
                 ["orig"] = "/words",
-                ["parts"] = {
-                  "words",
+                ["segments"] = {
+                  {
+                    ["lit"] = "words",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -78,6 +85,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "words",
                 },
               },
             },
@@ -106,8 +116,10 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/words",
-                ["parts"] = {
-                  "words",
+                ["segments"] = {
+                  {
+                    ["lit"] = "words",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -118,6 +130,9 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "words",
                 },
               },
             },
@@ -141,9 +156,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "GET",
                 ["orig"] = "/pets/{id}",
-                ["parts"] = {
-                  "pets",
-                  "{id}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "pets",
+                  },
+                  {
+                    ["var"] = "id",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -153,6 +172,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "pets",
+                  "{id}",
                 },
               },
             },
@@ -176,9 +199,13 @@ local function make_config()
                 ["kind"] = "http",
                 ["method"] = "DELETE",
                 ["orig"] = "/pets/{id}",
-                ["parts"] = {
-                  "pets",
-                  "{id}",
+                ["segments"] = {
+                  {
+                    ["lit"] = "pets",
+                  },
+                  {
+                    ["var"] = "id",
+                  },
                 },
                 ["select"] = {
                   ["exist"] = {
@@ -188,6 +215,10 @@ local function make_config()
                 ["transform"] = {
                   ["req"] = "`reqdata`",
                   ["res"] = "`body`",
+                },
+                ["parts"] = {
+                  "pets",
+                  "{id}",
                 },
               },
             },

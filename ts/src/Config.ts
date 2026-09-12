@@ -10,6 +10,17 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
+// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
+// the model's active plugin groups. A feature that takes a `plugins` option
+// (secrets over sekreto) reads its own entry; a feature with no plugins has
+// none. Named imports above make each definition statically reachable, so
+// an SDK carries exactly the plugin modules its model selects — the same
+// leanness the old side-effect registry imports bought, without a registry.
+const FEATURE_PLUGINS: Record<string, any[]> = {
+  
+}
+
+
 class Config {
 
   makeFeature(this: any, fn: string) {
@@ -67,6 +78,7 @@ class Config {
     "pet": {
       "fields": [
         {
+          "format": "int64",
           "name": "id",
           "req": true,
           "type": "`$INTEGER`"
@@ -81,6 +93,10 @@ class Config {
           "type": "`$STRING`"
         }
       ],
+      "id": {
+        "field": "id",
+        "name": "id"
+      },
       "name": "pet",
       "op": {
         "create": {
@@ -102,8 +118,10 @@ class Config {
               "kind": "http",
               "method": "POST",
               "orig": "/words",
-              "parts": [
-                "words"
+              "segments": [
+                {
+                  "lit": "words"
+                }
               ],
               "select": {
                 "exist": [
@@ -113,7 +131,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "words"
+              ]
             }
           ]
         },
@@ -141,8 +162,10 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/words",
-              "parts": [
-                "words"
+              "segments": [
+                {
+                  "lit": "words"
+                }
               ],
               "select": {
                 "exist": [
@@ -153,7 +176,10 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "words"
+              ]
             }
           ]
         },
@@ -176,9 +202,13 @@ class Config {
               "kind": "http",
               "method": "GET",
               "orig": "/pets/{id}",
-              "parts": [
-                "pets",
-                "{id}"
+              "segments": [
+                {
+                  "lit": "pets"
+                },
+                {
+                  "var": "id"
+                }
               ],
               "select": {
                 "exist": [
@@ -188,7 +218,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "pets",
+                "{id}"
+              ]
             }
           ]
         },
@@ -211,9 +245,13 @@ class Config {
               "kind": "http",
               "method": "DELETE",
               "orig": "/pets/{id}",
-              "parts": [
-                "pets",
-                "{id}"
+              "segments": [
+                {
+                  "lit": "pets"
+                },
+                {
+                  "var": "id"
+                }
               ],
               "select": {
                 "exist": [
@@ -223,7 +261,11 @@ class Config {
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
-              }
+              },
+              "parts": [
+                "pets",
+                "{id}"
+              ]
             }
           ]
         }
@@ -239,6 +281,7 @@ class Config {
 const config = new Config()
 
 export {
-  config
+  config,
+  FEATURE_PLUGINS,
 }
 

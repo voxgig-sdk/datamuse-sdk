@@ -44,6 +44,7 @@ module DatamuseConfig
         "pet" => {
           "fields" => [
             {
+              "format" => "int64",
               "name" => "id",
               "req" => true,
               "type" => "`$INTEGER`",
@@ -58,6 +59,10 @@ module DatamuseConfig
               "type" => "`$STRING`",
             },
           ],
+          "id" => {
+            "field" => "id",
+            "name" => "id",
+          },
           "name" => "pet",
           "op" => {
             "create" => {
@@ -79,8 +84,10 @@ module DatamuseConfig
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/words",
-                  "parts" => [
-                    "words",
+                  "segments" => [
+                    {
+                      "lit" => "words",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -91,6 +98,9 @@ module DatamuseConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "words",
+                  ],
                 },
               ],
             },
@@ -118,8 +128,10 @@ module DatamuseConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/words",
-                  "parts" => [
-                    "words",
+                  "segments" => [
+                    {
+                      "lit" => "words",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -131,6 +143,9 @@ module DatamuseConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "words",
+                  ],
                 },
               ],
             },
@@ -153,9 +168,13 @@ module DatamuseConfig
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/pets/{id}",
-                  "parts" => [
-                    "pets",
-                    "{id}",
+                  "segments" => [
+                    {
+                      "lit" => "pets",
+                    },
+                    {
+                      "var" => "id",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -166,6 +185,10 @@ module DatamuseConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "pets",
+                    "{id}",
+                  ],
                 },
               ],
             },
@@ -188,9 +211,13 @@ module DatamuseConfig
                   "kind" => "http",
                   "method" => "DELETE",
                   "orig" => "/pets/{id}",
-                  "parts" => [
-                    "pets",
-                    "{id}",
+                  "segments" => [
+                    {
+                      "lit" => "pets",
+                    },
+                    {
+                      "var" => "id",
+                    },
                   ],
                   "select" => {
                     "exist" => [
@@ -201,6 +228,10 @@ module DatamuseConfig
                     "req" => "`reqdata`",
                     "res" => "`body`",
                   },
+                  "parts" => [
+                    "pets",
+                    "{id}",
+                  ],
                 },
               ],
             },
