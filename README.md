@@ -105,7 +105,7 @@ local results, err = client:Pet():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/datamuse` | publish pending — [install from git tag](https://github.com/voxgig-sdk/datamuse-sdk/releases) |
+| TypeScript | `@voxgig-sdk/datamuse-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/datamuse-sdk/releases) |
 | Python | `voxgig-sdk-datamuse` | publish pending — [install from git tag](https://github.com/voxgig-sdk/datamuse-sdk/releases) |
 | PHP | `voxgig-sdk/datamuse` | publish pending — [install from git tag](https://github.com/voxgig-sdk/datamuse-sdk/releases) |
 | Golang | `github.com/voxgig-sdk/datamuse-sdk/go` | `go get github.com/voxgig-sdk/datamuse-sdk/go@latest` |
@@ -119,7 +119,7 @@ local results, err = client:Pet():list()
 ### TypeScript
 
 ```ts
-import { DatamuseSDK } from '@voxgig-sdk/datamuse'
+import { DatamuseSDK } from '@voxgig-sdk/datamuse-sdk'
 
 const client = new DatamuseSDK()
 

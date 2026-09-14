@@ -28,7 +28,7 @@ loading a specific record.
 ### 1. Create a client
 
 ```ts
-import { DatamuseSDK } from '@voxgig-sdk/datamuse'
+import { DatamuseSDK } from '@voxgig-sdk/datamuse-sdk'
 
 const client = new DatamuseSDK()
 ```
@@ -460,7 +460,7 @@ datamuse/
 Import the SDK from the package root:
 
 ```ts
-import { DatamuseSDK } from '@voxgig-sdk/datamuse'
+import { DatamuseSDK } from '@voxgig-sdk/datamuse-sdk'
 ```
 
 ### Entity state
