@@ -1,12 +1,18 @@
 # Datamuse SDK feature factory
 
 from datamuse_sdk.feature.base_feature import DatamuseBaseFeature
+from datamuse_sdk.feature.ratelimit_feature import DatamuseRatelimitFeature
+from datamuse_sdk.feature.retry_feature import DatamuseRetryFeature
 from datamuse_sdk.feature.test_feature import DatamuseTestFeature
+from datamuse_sdk.feature.timeout_feature import DatamuseTimeoutFeature
 
 
 _FEATURES = {
     "base": lambda: DatamuseBaseFeature(),
+    "ratelimit": lambda: DatamuseRatelimitFeature(),
+    "retry": lambda: DatamuseRetryFeature(),
     "test": lambda: DatamuseTestFeature(),
+    "timeout": lambda: DatamuseTimeoutFeature(),
 }
 
 
