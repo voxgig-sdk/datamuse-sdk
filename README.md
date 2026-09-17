@@ -105,12 +105,12 @@ local results, err = client:Pet():list()
 
 | Language | Package | Install |
 | --- | --- | --- |
-| TypeScript | `@voxgig-sdk/datamuse-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/datamuse-sdk/releases) |
-| Python | `voxgig-sdk-datamuse` | publish pending — [install from git tag](https://github.com/voxgig-sdk/datamuse-sdk/releases) |
-| PHP | `voxgig-sdk/datamuse` | publish pending — [install from git tag](https://github.com/voxgig-sdk/datamuse-sdk/releases) |
+| TypeScript | `@voxgig-sdk/datamuse-sdk` | publish pending — [install from git tag](https://github.com/voxgig-sdk/datamuse-sdk/tags) |
+| Python | `voxgig-sdk-datamuse` | publish pending — [install from git tag](https://github.com/voxgig-sdk/datamuse-sdk/tags) |
+| PHP | `voxgig-sdk/datamuse` | publish pending — [install from git tag](https://github.com/voxgig-sdk/datamuse-sdk/tags) |
 | Golang | `github.com/voxgig-sdk/datamuse-sdk/go` | `go get github.com/voxgig-sdk/datamuse-sdk/go@latest` |
-| Ruby | `voxgig-sdk-datamuse` | publish pending — [install from git tag](https://github.com/voxgig-sdk/datamuse-sdk/releases) |
-| Lua | `voxgig-sdk-datamuse` | publish pending — [install from git tag](https://github.com/voxgig-sdk/datamuse-sdk/releases) |
+| Ruby | `voxgig-sdk-datamuse` | publish pending — [install from git tag](https://github.com/voxgig-sdk/datamuse-sdk/tags) |
+| Lua | `voxgig-sdk-datamuse` | publish pending — [install from git tag](https://github.com/voxgig-sdk/datamuse-sdk/tags) |
 | Go CLI | `github.com/voxgig-sdk/datamuse-sdk/go-cli` | `go install github.com/voxgig-sdk/datamuse-sdk/go-cli/cmd/datamuse@latest` |
 | Go MCP server | `github.com/voxgig-sdk/datamuse-sdk/go-mcp` | `go get github.com/voxgig-sdk/datamuse-sdk/go-mcp@latest` |
 
