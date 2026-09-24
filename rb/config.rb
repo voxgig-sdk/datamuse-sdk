@@ -98,18 +98,21 @@ module DatamuseConfig
         "pet" => {
           "fields" => [
             {
-              "format" => "int64",
               "name" => "id",
-              "req" => true,
+              "title" => "Id",
               "type" => "`$INTEGER`",
+              "req" => true,
+              "format" => "int64",
             },
             {
               "name" => "name",
-              "req" => true,
+              "title" => "Name",
               "type" => "`$STRING`",
+              "req" => true,
             },
             {
               "name" => "tag",
+              "title" => "Tag",
               "type" => "`$STRING`",
             },
           ],
@@ -124,17 +127,6 @@ module DatamuseConfig
               "name" => "create",
               "points" => [
                 {
-                  "args" => {
-                    "query" => [
-                      {
-                        "kind" => "query",
-                        "name" => "pet",
-                        "orig" => "pet",
-                        "reqd" => true,
-                        "type" => "`$OBJECT`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "POST",
                   "orig" => "/words",
@@ -143,18 +135,30 @@ module DatamuseConfig
                       "lit" => "words",
                     },
                   ],
+                  "parts" => [
+                    "words",
+                  ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "query" => [
+                      {
+                        "name" => "pet",
+                        "orig" => "pet",
+                        "type" => "`$OBJECT`",
+                        "kind" => "query",
+                        "reqd" => true,
+                      },
+                    ],
+                  },
                   "select" => {
                     "exist" => [
                       "pet",
                     ],
                   },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
-                  "parts" => [
-                    "words",
-                  ],
                 },
               ],
             },
@@ -163,22 +167,6 @@ module DatamuseConfig
               "name" => "list",
               "points" => [
                 {
-                  "args" => {
-                    "query" => [
-                      {
-                        "kind" => "query",
-                        "name" => "limit",
-                        "orig" => "limit",
-                        "type" => "`$INTEGER`",
-                      },
-                      {
-                        "kind" => "query",
-                        "name" => "tag",
-                        "orig" => "tag",
-                        "type" => "`$ANY`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/words",
@@ -187,19 +175,36 @@ module DatamuseConfig
                       "lit" => "words",
                     },
                   ],
+                  "parts" => [
+                    "words",
+                  ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "query" => [
+                      {
+                        "name" => "limit",
+                        "orig" => "limit",
+                        "type" => "`$INTEGER`",
+                        "kind" => "query",
+                      },
+                      {
+                        "name" => "tag",
+                        "orig" => "tag",
+                        "type" => "`$ANY`",
+                        "kind" => "query",
+                      },
+                    ],
+                  },
                   "select" => {
                     "exist" => [
                       "limit",
                       "tag",
                     ],
                   },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
-                  "parts" => [
-                    "words",
-                  ],
                 },
               ],
             },
@@ -208,17 +213,6 @@ module DatamuseConfig
               "name" => "load",
               "points" => [
                 {
-                  "args" => {
-                    "params" => [
-                      {
-                        "kind" => "param",
-                        "name" => "id",
-                        "orig" => "id",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "GET",
                   "orig" => "/pets/{id}",
@@ -230,19 +224,31 @@ module DatamuseConfig
                       "var" => "id",
                     },
                   ],
+                  "parts" => [
+                    "pets",
+                    "{id}",
+                  ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "id",
+                        "orig" => "id",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                    ],
+                  },
                   "select" => {
                     "exist" => [
                       "id",
                     ],
                   },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
-                  "parts" => [
-                    "pets",
-                    "{id}",
-                  ],
                 },
               ],
             },
@@ -251,17 +257,6 @@ module DatamuseConfig
               "name" => "remove",
               "points" => [
                 {
-                  "args" => {
-                    "params" => [
-                      {
-                        "kind" => "param",
-                        "name" => "id",
-                        "orig" => "id",
-                        "reqd" => true,
-                        "type" => "`$STRING`",
-                      },
-                    ],
-                  },
                   "kind" => "http",
                   "method" => "DELETE",
                   "orig" => "/pets/{id}",
@@ -273,19 +268,31 @@ module DatamuseConfig
                       "var" => "id",
                     },
                   ],
+                  "parts" => [
+                    "pets",
+                    "{id}",
+                  ],
+                  "rename" => {},
+                  "transform" => {
+                    "req" => "`reqdata`",
+                    "res" => "`body`",
+                  },
+                  "args" => {
+                    "params" => [
+                      {
+                        "name" => "id",
+                        "orig" => "id",
+                        "type" => "`$STRING`",
+                        "kind" => "param",
+                        "reqd" => true,
+                      },
+                    ],
+                  },
                   "select" => {
                     "exist" => [
                       "id",
                     ],
                   },
-                  "transform" => {
-                    "req" => "`reqdata`",
-                    "res" => "`body`",
-                  },
-                  "parts" => [
-                    "pets",
-                    "{id}",
-                  ],
                 },
               ],
             },

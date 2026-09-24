@@ -72,7 +72,7 @@ const created = await client.Pet().create({
 
 // Remove
 await client.Pet().remove({
-  id: 'example_id',
+  id: created.data().id!,
 })
 ```
 

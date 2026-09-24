@@ -43,7 +43,7 @@ local pets, err = client:Pet():list()
 if err then error(err) end
 
 for _, item in ipairs(pets) do
-  print(item["id"], item["name"])
+  print(item["id"])
 end
 ```
 

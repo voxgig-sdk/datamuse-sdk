@@ -16,12 +16,6 @@ const FEATURE_CLASS: Record<string, typeof BaseFeature> = {
 }
 
 
-// Per-feature plugin DEFINITIONS (voxgig/plugin `Definition` values), from
-// the model's active plugin groups. A feature that takes a `plugins` option
-// (secrets over sekreto) reads its own entry; a feature with no plugins has
-// none. Named imports above make each definition statically reachable, so
-// an SDK carries exactly the plugin modules its model selects — the same
-// leanness the old side-effect registry imports bought, without a registry.
 const FEATURE_PLUGINS: Record<string, any[]> = {
   
 }
@@ -32,7 +26,6 @@ class Config {
   makeFeature(this: any, fn: string) {
     const fc = FEATURE_CLASS[fn]
     const fi = new fc()
-    // TODO: errors etc
     return fi
   }
 
@@ -138,18 +131,21 @@ class Config {
     "pet": {
       "fields": [
         {
-          "format": "int64",
           "name": "id",
+          "title": "Id",
+          "type": "`$INTEGER`",
           "req": true,
-          "type": "`$INTEGER`"
+          "format": "int64"
         },
         {
           "name": "name",
-          "req": true,
-          "type": "`$STRING`"
+          "title": "Name",
+          "type": "`$STRING`",
+          "req": true
         },
         {
           "name": "tag",
+          "title": "Tag",
           "type": "`$STRING`"
         }
       ],
@@ -164,17 +160,6 @@ class Config {
           "name": "create",
           "points": [
             {
-              "args": {
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "pet",
-                    "orig": "pet",
-                    "reqd": true,
-                    "type": "`$OBJECT`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "POST",
               "orig": "/words",
@@ -183,18 +168,30 @@ class Config {
                   "lit": "words"
                 }
               ],
-              "select": {
-                "exist": [
-                  "pet"
-                ]
-              },
+              "parts": [
+                "words"
+              ],
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "parts": [
-                "words"
-              ]
+              "args": {
+                "query": [
+                  {
+                    "name": "pet",
+                    "orig": "pet",
+                    "type": "`$OBJECT`",
+                    "kind": "query",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "pet"
+                ]
+              }
             }
           ]
         },
@@ -203,22 +200,6 @@ class Config {
           "name": "list",
           "points": [
             {
-              "args": {
-                "query": [
-                  {
-                    "kind": "query",
-                    "name": "limit",
-                    "orig": "limit",
-                    "type": "`$INTEGER`"
-                  },
-                  {
-                    "kind": "query",
-                    "name": "tag",
-                    "orig": "tag",
-                    "type": "`$ANY`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/words",
@@ -227,19 +208,36 @@ class Config {
                   "lit": "words"
                 }
               ],
+              "parts": [
+                "words"
+              ],
+              "rename": {},
+              "transform": {
+                "req": "`reqdata`",
+                "res": "`body`"
+              },
+              "args": {
+                "query": [
+                  {
+                    "name": "limit",
+                    "orig": "limit",
+                    "type": "`$INTEGER`",
+                    "kind": "query"
+                  },
+                  {
+                    "name": "tag",
+                    "orig": "tag",
+                    "type": "`$ANY`",
+                    "kind": "query"
+                  }
+                ]
+              },
               "select": {
                 "exist": [
                   "limit",
                   "tag"
                 ]
-              },
-              "transform": {
-                "req": "`reqdata`",
-                "res": "`body`"
-              },
-              "parts": [
-                "words"
-              ]
+              }
             }
           ]
         },
@@ -248,17 +246,6 @@ class Config {
           "name": "load",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "id",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "GET",
               "orig": "/pets/{id}",
@@ -270,19 +257,31 @@ class Config {
                   "var": "id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
+              "parts": [
+                "pets",
+                "{id}"
+              ],
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "parts": [
-                "pets",
-                "{id}"
-              ]
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              }
             }
           ]
         },
@@ -291,17 +290,6 @@ class Config {
           "name": "remove",
           "points": [
             {
-              "args": {
-                "params": [
-                  {
-                    "kind": "param",
-                    "name": "id",
-                    "orig": "id",
-                    "reqd": true,
-                    "type": "`$STRING`"
-                  }
-                ]
-              },
               "kind": "http",
               "method": "DELETE",
               "orig": "/pets/{id}",
@@ -313,19 +301,31 @@ class Config {
                   "var": "id"
                 }
               ],
-              "select": {
-                "exist": [
-                  "id"
-                ]
-              },
+              "parts": [
+                "pets",
+                "{id}"
+              ],
+              "rename": {},
               "transform": {
                 "req": "`reqdata`",
                 "res": "`body`"
               },
-              "parts": [
-                "pets",
-                "{id}"
-              ]
+              "args": {
+                "params": [
+                  {
+                    "name": "id",
+                    "orig": "id",
+                    "type": "`$STRING`",
+                    "kind": "param",
+                    "reqd": true
+                  }
+                ]
+              },
+              "select": {
+                "exist": [
+                  "id"
+                ]
+              }
             }
           ]
         }
